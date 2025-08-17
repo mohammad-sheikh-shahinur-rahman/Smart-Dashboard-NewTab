@@ -19,6 +19,7 @@
 ---
 
 ## 🚀 **Features Overview**
+![Screenshot](https://github.com/mohammad-sheikh-shahinur-rahman/Smart-Dashboard-NewTab/raw/main/Screenshot%202025-08-17%20200742.png)
 
 ### ✨ **Core Features**
 - **AI-Powered Search**: Google Gemini integration for intelligent search
