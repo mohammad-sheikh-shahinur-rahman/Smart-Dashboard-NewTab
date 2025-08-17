@@ -741,6 +741,7 @@ class NotesWidget {
         }
     }
 
+    setupEventListeners() {
         // Textarea input
         if (this.notesTextarea) {
             this.notesTextarea.addEventListener('input', () => {

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .calc-display {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .calc-expression {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+            min-height: 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .calc-result {
+            font-size: 24px;
+            font-weight: 800;
+            color: #4CAF50;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .calc-keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .calc-btn {
+            aspect-ratio: 1;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .calc-btn:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        .calc-btn.operator {
+            background: #4CAF50;
+            color: white;
+        }
+        .calc-btn.equals {
+            background: #66BB6A;
+            color: white;
+            grid-column: span 2;
+        }
+        .test-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e8;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>Calculator Test</h2>
+        
+        <!-- Calculator Widget -->
+        <div class="widget calculator-widget" data-widget="calculator">
+            <div class="widget-header">
+                <h3>Calculator</h3>
+                <div class="widget-actions">
+                    <button class="widget-btn" id="calc-clear-btn" title="Clear">
+                        Clear
+                    </button>
+                </div>
+            </div>
+            <div class="widget-content">
+                <div class="calc-display">
+                    <div class="calc-expression" id="calc-expression"></div>
+                    <div class="calc-result" id="calc-result">0</div>
+                </div>
+                <div class="calc-keypad">
+                    <button class="calc-btn" data-action="clear">C</button>
+                    <button class="calc-btn" data-action="backspace">⌫</button>
+                    <button class="calc-btn" data-action="percent">%</button>
+                    <button class="calc-btn operator" data-action="divide">÷</button>
+                    
+                    <button class="calc-btn" data-action="7">7</button>
+                    <button class="calc-btn" data-action="8">8</button>
+                    <button class="calc-btn" data-action="9">9</button>
+                    <button class="calc-btn operator" data-action="multiply">×</button>
+                    
+                    <button class="calc-btn" data-action="4">4</button>
+                    <button class="calc-btn" data-action="5">5</button>
+                    <button class="calc-btn" data-action="6">6</button>
+                    <button class="calc-btn operator" data-action="subtract">−</button>
+                    
+                    <button class="calc-btn" data-action="1">1</button>
+                    <button class="calc-btn" data-action="2">2</button>
+                    <button class="calc-btn" data-action="3">3</button>
+                    <button class="calc-btn operator" data-action="add">+</button>
+                    
+                    <button class="calc-btn" data-action="0">0</button>
+                    <button class="calc-btn" data-action="decimal">.</button>
+                    <button class="calc-btn equals" data-action="equals">=</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-info">
+            <h4>Test Instructions:</h4>
+            <ol>
+                <li>Open browser console (F12)</li>
+                <li>Try clicking calculator buttons</li>
+                <li>Check console for debug messages</li>
+                <li>Test basic operations: 2 + 3 = 5</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="scripts/calculator.js"></script>
+    <script>
+        // Test the calculator
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Test page loaded');
+            console.log('CalculatorWidget available:', !!window.CalculatorWidget);
+            
+            if (window.CalculatorWidget) {
+                console.log('Testing calculator functionality...');
+                // Test basic operation
+                setTimeout(() => {
+                    console.log('Testing 2 + 3 = 5...');
+                    // Simulate button clicks
+                    const buttons = document.querySelectorAll('.calc-btn[data-action]');
+                    console.log('Found buttons:', buttons.length);
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

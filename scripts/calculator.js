@@ -17,7 +17,7 @@ class CalculatorWidget {
         this.maxHistory = 50;
         
         // DOM elements
-        this.display = document.getElementById('calc-display');
+        this.display = document.getElementById('calc-expression');
         this.resultDisplay = document.getElementById('calc-result');
         this.historyDisplay = document.getElementById('calc-history');
         this.memoryIndicator = document.getElementById('memory-indicator');
@@ -50,6 +50,14 @@ class CalculatorWidget {
     }
 
     init() {
+        console.log('Calculator Widget: Starting initialization...');
+        console.log('Calculator Widget: Looking for calculator elements...');
+        
+        // Check if elements exist
+        console.log('Calculator Widget: calc-expression element:', !!this.display);
+        console.log('Calculator Widget: calc-result element:', !!this.resultDisplay);
+        console.log('Calculator Widget: calc-history element:', !!this.historyDisplay);
+        
         this.setupEventListeners();
         this.updateDisplay();
         this.updateMemoryIndicator();
@@ -57,126 +65,93 @@ class CalculatorWidget {
     }
 
     setupEventListeners() {
-        // Number buttons
-        for (let i = 0; i <= 9; i++) {
-            const btn = document.getElementById(`calc-${i}`);
-            if (btn) {
-                btn.addEventListener('click', () => this.appendNumber(i.toString()));
-            }
-        }
-
-        // Decimal point
-        const decimalBtn = document.getElementById('calc-decimal');
-        if (decimalBtn) {
-            decimalBtn.addEventListener('click', () => this.appendDecimal());
-        }
-
-        // Basic operations
-        const operations = {
-            'calc-add': '+',
-            'calc-subtract': '-',
-            'calc-multiply': '*',
-            'calc-divide': '/',
-            'calc-modulo': '%'
-        };
-
-        Object.entries(operations).forEach(([id, operation]) => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.addEventListener('click', () => this.chooseOperation(operation));
-            }
+        console.log('Calculator Widget: Setting up event listeners...');
+        
+        // Get all calculator buttons with data-action
+        const calcButtons = document.querySelectorAll('.calc-btn[data-action]');
+        console.log('Calculator Widget: Found', calcButtons.length, 'calculator buttons');
+        
+        calcButtons.forEach(btn => {
+            const action = btn.getAttribute('data-action');
+            console.log('Calculator Widget: Adding listener for button with action:', action);
+            btn.addEventListener('click', (e) => {
+                console.log('Calculator Widget: Button clicked with action:', action);
+                this.handleButtonClick(action);
+            });
         });
 
-        // Equals
-        const equalsBtn = document.getElementById('calc-equals');
-        if (equalsBtn) {
-            equalsBtn.addEventListener('click', () => this.compute());
-        }
-
-        // Clear
-        const clearBtn = document.getElementById('calc-clear');
+        // Additional buttons
+        const clearBtn = document.getElementById('calc-clear-btn');
         if (clearBtn) {
+            console.log('Calculator Widget: Found clear button');
             clearBtn.addEventListener('click', () => this.clear());
+        } else {
+            console.log('Calculator Widget: Clear button not found');
         }
 
-        // Clear entry
-        const clearEntryBtn = document.getElementById('calc-clear-entry');
-        if (clearEntryBtn) {
-            clearEntryBtn.addEventListener('click', () => this.clearEntry());
+        const historyBtn = document.getElementById('calc-history-btn');
+        if (historyBtn) {
+            console.log('Calculator Widget: Found history button');
+            historyBtn.addEventListener('click', () => this.toggleHistory());
+        } else {
+            console.log('Calculator Widget: History button not found');
         }
-
-        // Backspace
-        const backspaceBtn = document.getElementById('calc-backspace');
-        if (backspaceBtn) {
-            backspaceBtn.addEventListener('click', () => this.backspace());
-        }
-
-        // Memory functions
-        const memoryFunctions = {
-            'calc-memory-clear': () => this.memoryClear(),
-            'calc-memory-recall': () => this.memoryRecall(),
-            'calc-memory-add': () => this.memoryAdd(),
-            'calc-memory-subtract': () => this.memorySubtract(),
-            'calc-memory-store': () => this.memoryStore()
-        };
-
-        Object.entries(memoryFunctions).forEach(([id, func]) => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.addEventListener('click', func);
-            }
-        });
-
-        // Scientific functions
-        const scientificFunctions = {
-            'calc-sin': () => this.scientificFunction('sin'),
-            'calc-cos': () => this.scientificFunction('cos'),
-            'calc-tan': () => this.scientificFunction('tan'),
-            'calc-asin': () => this.scientificFunction('asin'),
-            'calc-acos': () => this.scientificFunction('acos'),
-            'calc-atan': () => this.scientificFunction('atan'),
-            'calc-log': () => this.scientificFunction('log'),
-            'calc-ln': () => this.scientificFunction('ln'),
-            'calc-sqrt': () => this.scientificFunction('sqrt'),
-            'calc-square': () => this.scientificFunction('square'),
-            'calc-cube': () => this.scientificFunction('cube'),
-            'calc-factorial': () => this.scientificFunction('factorial'),
-            'calc-exp': () => this.scientificFunction('exp'),
-            'calc-pi': () => this.scientificFunction('pi'),
-            'calc-e': () => this.scientificFunction('e'),
-            'calc-abs': () => this.scientificFunction('abs'),
-            'calc-floor': () => this.scientificFunction('floor'),
-            'calc-ceil': () => this.scientificFunction('ceil'),
-            'calc-round': () => this.scientificFunction('round')
-        };
-
-        Object.entries(scientificFunctions).forEach(([id, func]) => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.addEventListener('click', func);
-            }
-        });
-
-        // Additional functions
-        const additionalFunctions = {
-            'calc-percent': () => this.percent(),
-            'calc-plus-minus': () => this.plusMinus(),
-            'calc-reciprocal': () => this.reciprocal(),
-            'calc-power': () => this.power(),
-            'calc-root': () => this.root()
-        };
-
-        Object.entries(additionalFunctions).forEach(([id, func]) => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.addEventListener('click', func);
-            }
-        });
 
         // Keyboard support
         document.addEventListener('keydown', (e) => {
             this.handleKeyboardInput(e);
         });
+        
+        console.log('Calculator Widget: Event listeners setup complete');
+    }
+
+    handleButtonClick(action) {
+        console.log('Calculator Widget: Handling button click for action:', action);
+        
+        // Numbers
+        if (/[0-9]/.test(action)) {
+            console.log('Calculator Widget: Processing number:', action);
+            this.appendNumber(action);
+        }
+        // Decimal
+        else if (action === 'decimal') {
+            console.log('Calculator Widget: Processing decimal');
+            this.appendDecimal();
+        }
+        // Operations
+        else if (['add', 'subtract', 'multiply', 'divide'].includes(action)) {
+            const operationMap = {
+                'add': '+',
+                'subtract': '-',
+                'multiply': '*',
+                'divide': '/'
+            };
+            console.log('Calculator Widget: Processing operation:', action, '->', operationMap[action]);
+            this.chooseOperation(operationMap[action]);
+        }
+        // Equals
+        else if (action === 'equals') {
+            console.log('Calculator Widget: Processing equals');
+            this.compute();
+        }
+        // Clear
+        else if (action === 'clear') {
+            console.log('Calculator Widget: Processing clear');
+            this.clear();
+        }
+        // Backspace
+        else if (action === 'backspace') {
+            console.log('Calculator Widget: Processing backspace');
+            this.backspace();
+        }
+        // Percent
+        else if (action === 'percent') {
+            console.log('Calculator Widget: Processing percent');
+            this.percent();
+        }
+        else {
+            console.log('Calculator Widget: Unknown action:', action);
+        }
     }
 
     handleKeyboardInput(e) {
@@ -209,15 +184,6 @@ class CalculatorWidget {
         else if (key === 'Backspace') {
             e.preventDefault();
             this.backspace();
-        }
-        // Memory functions
-        else if (key === 'm' || key === 'M') {
-            e.preventDefault();
-            if (e.ctrlKey) {
-                this.memoryStore();
-            } else {
-                this.memoryRecall();
-            }
         }
     }
 
@@ -331,12 +297,6 @@ class CalculatorWidget {
         this.updateDisplay();
     }
 
-    clearEntry() {
-        this.currentInput = '';
-        this.shouldResetScreen = false;
-        this.updateDisplay();
-    }
-
     backspace() {
         this.currentInput = this.currentInput.toString().slice(0, -1);
         this.updateDisplay();
@@ -353,148 +313,15 @@ class CalculatorWidget {
         this.updateDisplay();
     }
 
-    plusMinus() {
-        if (this.currentInput === '') return;
-        
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current)) return;
-        
-        this.currentInput = (-current).toString();
-        this.updateDisplay();
-    }
-
-    reciprocal() {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current) || current === 0) {
-            this.showError('Cannot divide by zero');
-            return;
+    toggleHistory() {
+        // Toggle history display if it exists
+        if (this.historyDisplay) {
+            this.historyDisplay.style.display = 
+                this.historyDisplay.style.display === 'none' ? 'block' : 'none';
         }
-        
-        const result = 1 / current;
-        this.addToHistory(`1/${current} = ${result}`);
-        this.currentInput = result.toString();
-        this.shouldResetScreen = true;
-        this.updateDisplay();
-    }
-
-    power() {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current)) return;
-        
-        const result = Math.pow(current, 2);
-        this.addToHistory(`${current}² = ${result}`);
-        this.currentInput = result.toString();
-        this.shouldResetScreen = true;
-        this.updateDisplay();
-    }
-
-    root() {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current) || current < 0) {
-            this.showError('Cannot calculate square root of negative number');
-            return;
-        }
-        
-        const result = Math.sqrt(current);
-        this.addToHistory(`√${current} = ${result}`);
-        this.currentInput = result.toString();
-        this.shouldResetScreen = true;
-                this.updateDisplay();
-    }
-
-    scientificFunction(funcName) {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current)) return;
-        
-        try {
-            let result;
-            if (funcName === 'pi') {
-                result = this.scientificFunctions.pi();
-                this.addToHistory(`π = ${result}`);
-            } else if (funcName === 'e') {
-                result = this.scientificFunctions.e();
-                this.addToHistory(`e = ${result}`);
-            } else {
-                result = this.scientificFunctions[funcName](current);
-                this.addToHistory(`${funcName}(${current}) = ${result}`);
-            }
-            
-            this.currentInput = result.toString();
-            this.shouldResetScreen = true;
-            this.updateDisplay();
-        } catch (error) {
-            this.showError(`Error calculating ${funcName}`);
-        }
-    }
-
-    // Memory functions
-    memoryClear() {
-        this.memory = 0;
-        this.isMemorySet = false;
-        this.updateMemoryIndicator();
-        this.showNotification('Memory cleared', 'info');
-    }
-
-    memoryRecall() {
-        if (this.isMemorySet) {
-            this.currentInput = this.memory.toString();
-            this.shouldResetScreen = true;
-            this.updateDisplay();
-            this.showNotification('Memory recalled', 'info');
-        }
-    }
-
-    memoryAdd() {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current)) return;
-        
-        this.memory += current;
-        this.isMemorySet = true;
-        this.updateMemoryIndicator();
-        this.showNotification('Added to memory', 'info');
-    }
-
-    memorySubtract() {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current)) return;
-        
-        this.memory -= current;
-        this.isMemorySet = true;
-        this.updateMemoryIndicator();
-        this.showNotification('Subtracted from memory', 'info');
-    }
-
-    memoryStore() {
-        const current = parseFloat(this.currentInput);
-        if (isNaN(current)) return;
-        
-        this.memory = current;
-        this.isMemorySet = true;
-        this.updateMemoryIndicator();
-        this.showNotification('Stored in memory', 'info');
     }
 
     // Utility functions
-    toRadians(degrees) {
-        return degrees * (Math.PI / 180);
-    }
-
-    toDegrees(radians) {
-        return radians * (180 / Math.PI);
-    }
-
-    factorial(n) {
-        if (n < 0 || !Number.isInteger(n)) {
-            throw new Error('Factorial is only defined for non-negative integers');
-        }
-        if (n === 0 || n === 1) return 1;
-        let result = 1;
-        for (let i = 2; i <= n; i++) {
-            result *= i;
-        }
-        return result;
-    }
-
     addToHistory(entry) {
         this.history.unshift(entry);
         if (this.history.length > this.maxHistory) {
@@ -512,16 +339,27 @@ class CalculatorWidget {
     }
 
     updateDisplay() {
-        if (this.display) {
-            this.display.textContent = this.currentInput || '0';
-        }
+        console.log('Calculator Widget: Updating display...');
+        console.log('Calculator Widget: Current input:', this.currentInput);
+        console.log('Calculator Widget: Previous input:', this.previousInput);
+        console.log('Calculator Widget: Operation:', this.operation);
         
-        if (this.resultDisplay) {
+        if (this.display) {
             let displayValue = this.currentInput;
             if (this.operation !== null && this.previousInput !== '') {
                 displayValue = `${this.previousInput} ${this.operation} ${this.currentInput || '0'}`;
             }
-            this.resultDisplay.textContent = displayValue || '0';
+            this.display.textContent = displayValue || '0';
+            console.log('Calculator Widget: Updated expression display to:', displayValue || '0');
+        } else {
+            console.log('Calculator Widget: Expression display element not found');
+        }
+        
+        if (this.resultDisplay) {
+            this.resultDisplay.textContent = this.currentInput || '0';
+            console.log('Calculator Widget: Updated result display to:', this.currentInput || '0');
+        } else {
+            console.log('Calculator Widget: Result display element not found');
         }
     }
 
@@ -581,9 +419,9 @@ class CalculatorWidget {
 
 // Initialize when DOM is loaded
 if (document.readyState === 'loading') {
-document.addEventListener('DOMContentLoaded', () => {
-    window.CalculatorWidget = new CalculatorWidget();
-});
+    document.addEventListener('DOMContentLoaded', () => {
+        window.CalculatorWidget = new CalculatorWidget();
+    });
 } else {
     window.CalculatorWidget = new CalculatorWidget();
 }
