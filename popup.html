@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <style>
+        body {
+            width: 300px;
+            min-height: 200px;
+            margin: 0;
+            padding: 16px;
+        }
+        .popup-header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .popup-header h1 {
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            color: var(--on-surface);
+        }
+        .popup-header p {
+            font-size: 14px;
+            margin: 0;
+            color: var(--on-surface-variant);
+        }
+        .popup-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .popup-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--surface-variant);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--on-surface);
+        }
+        .popup-btn:hover {
+            background-color: var(--primary-container);
+            border-color: var(--primary-color);
+        }
+        .popup-btn .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-header">
+        <h1>Smart Dashboard</h1>
+        <p>Your intelligent new tab page</p>
+    </div>
+    
+    <div class="popup-actions">
+        <a href="#" id="open-dashboard" class="popup-btn">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Open Dashboard</span>
+        </a>
+        <a href="#" id="open-settings" class="popup-btn">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+        </a>
+        <a href="#" id="refresh-quote" class="popup-btn">
+            <span class="material-symbols-outlined">refresh</span>
+            <span>New Quote</span>
+        </a>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

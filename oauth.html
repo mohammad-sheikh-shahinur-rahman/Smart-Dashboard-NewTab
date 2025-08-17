@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth Callback</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .callback-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .status {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .message {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .success {
+            color: #51cf66;
+        }
+    </style>
+</head>
+<body>
+    <div class="callback-container">
+        <div class="loading-spinner" id="spinner"></div>
+        <div class="status" id="status">Processing...</div>
+        <div class="message" id="message">Please wait while we complete the authentication.</div>
+    </div>
+
+    <script>
+        // Handle OAuth callback
+        async function handleCallback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+            const error = urlParams.get('error');
+            
+            const statusEl = document.getElementById('status');
+            const messageEl = document.getElementById('message');
+            const spinnerEl = document.getElementById('spinner');
+            
+            if (error) {
+                statusEl.textContent = 'Authentication Failed';
+                statusEl.className = 'status error';
+                messageEl.textContent = `Error: ${error}`;
+                spinnerEl.style.display = 'none';
+                
+                setTimeout(() => {
+                    window.close();
+                }, 3000);
+                return;
+            }
+            
+            if (!code) {
+                statusEl.textContent = 'Invalid Request';
+                statusEl.className = 'status error';
+                messageEl.textContent = 'No authorization code received.';
+                spinnerEl.style.display = 'none';
+                
+                setTimeout(() => {
+                    window.close();
+                }, 3000);
+                return;
+            }
+            
+            try {
+                // Determine provider from URL or state
+                const provider = getProviderFromUrl();
+                
+                // Send message to parent window
+                if (window.opener) {
+                    window.opener.postMessage({
+                        type: 'oauth_callback',
+                        provider: provider,
+                        code: code,
+                        state: state
+                    }, '*');
+                    
+                    statusEl.textContent = 'Success!';
+                    statusEl.className = 'status success';
+                    messageEl.textContent = 'Authentication completed successfully. You can close this window.';
+                    spinnerEl.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.close();
+                    }, 2000);
+                } else {
+                    // Fallback: send to background script
+                    chrome.runtime.sendMessage({
+                        type: 'oauth_callback',
+                        provider: provider,
+                        code: code,
+                        state: state
+                    });
+                    
+                    statusEl.textContent = 'Success!';
+                    statusEl.className = 'status success';
+                    messageEl.textContent = 'Authentication completed successfully.';
+                    spinnerEl.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.close();
+                    }, 2000);
+                }
+            } catch (error) {
+                statusEl.textContent = 'Error';
+                statusEl.className = 'status error';
+                messageEl.textContent = 'Failed to process authentication.';
+                spinnerEl.style.display = 'none';
+                
+                setTimeout(() => {
+                    window.close();
+                }, 3000);
+            }
+        }
+        
+        function getProviderFromUrl() {
+            const hostname = window.location.hostname;
+            const pathname = window.location.pathname;
+            
+            if (hostname.includes('accounts.google.com')) {
+                return 'google';
+            } else if (hostname.includes('github.com')) {
+                return 'github';
+            } else if (hostname.includes('api.notion.com')) {
+                return 'notion';
+            } else if (hostname.includes('slack.com')) {
+                return 'slack';
+            } else if (pathname.includes('google')) {
+                return 'google';
+            } else if (pathname.includes('github')) {
+                return 'github';
+            } else if (pathname.includes('notion')) {
+                return 'notion';
+            } else if (pathname.includes('slack')) {
+                return 'slack';
+            }
+            
+            // Default fallback
+            return 'google';
+        }
+        
+        // Handle page load
+        document.addEventListener('DOMContentLoaded', handleCallback);
+        
+        // Handle window focus (in case user manually focuses the popup)
+        window.addEventListener('focus', () => {
+            if (window.opener) {
+                window.opener.focus();
+            }
+        });
+    </script>
+</body>
+</html>

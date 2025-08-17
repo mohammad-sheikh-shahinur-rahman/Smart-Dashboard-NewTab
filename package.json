@@ -1,0 +1,44 @@
+{
+  "name": "smart-dashboard-newtab",
+  "version": "1.0.0",
+  "description": "A modern, intelligent Chrome extension that transforms your new tab page into a beautiful, functional dashboard with Material Design 3 aesthetics.",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build process needed for vanilla JS extension'",
+    "dev": "echo 'Load extension in Chrome and reload on changes'",
+    "lint": "echo 'Add ESLint configuration if needed'",
+    "test": "echo 'Add test configuration if needed'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "new-tab",
+    "dashboard",
+    "material-design",
+    "productivity",
+    "todo",
+    "weather",
+    "quotes",
+    "search",
+    "pomodoro",
+    "habit-tracker",
+    "calculator",
+    "timer",
+    "notes",
+    "ai-assistant"
+  ],
+  "author": "Mohammad Sheikh Shahinur Rahman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohammad-sheikh-shahinur-rahman/Smart-Dashboard-NewTab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohammad-sheikh-shahinur-rahman/Smart-Dashboard-NewTab/issues"
+  },
+  "homepage": "https://github.com/mohammad-sheikh-shahinur-rahman/Smart-Dashboard-NewTab#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

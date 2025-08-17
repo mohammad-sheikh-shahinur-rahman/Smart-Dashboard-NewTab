@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Smart Dashboard NewTab",
+  "version": "1.0.0",
+  "description": "A modern, intelligent new tab page with AI-powered features, productivity tools, and beautiful Material Design 3 interface",
+  "permissions": [
+    "storage",
+    "bookmarks",
+    "tabs",
+    "notifications",
+    "geolocation",
+    "identity",
+    "identity.email"
+  ],
+  "optional_permissions": [
+    "history",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://api.openweathermap.org/*",
+    "https://api.quotable.io/*",
+    "https://api.github.com/*",
+    "https://www.google.com/complete/search?client=*",
+    "https://duckduckgo.com/ac/?q=*",
+    "https://openexchangerates.org/*",
+    "https://api.exchangerate-api.com/*",
+    "https://api.fixer.io/*",
+    "https://api.currencylayer.com/*",
+    "https://weather.visualcrossing.com/*",
+    "https://accounts.google.com/*",
+    "https://oauth2.googleapis.com/*",
+    "https://www.googleapis.com/*",
+    "https://github.com/*",
+    "https://api.github.com/*",
+    "https://api.notion.com/*",
+    "https://slack.com/*",
+    "https://api.slack.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://lens.google.com/*",
+    "https://www.google.com/searchbyimage/*",
+    "https://api.cloudinary.com/*"
+  ],
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "assets/icons/icon48.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "incognito": "split"
+}

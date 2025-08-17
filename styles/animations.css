@@ -1,0 +1,497 @@
+/* 
+ * Smart Dashboard NewTab - Animations & Effects
+ * Copyright (c) 2024
+ * Licensed under the MIT License
+ */
+
+/* Loading Animation */
+.loading-animation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.loading-logo {
+    font-size: 4rem;
+    color: var(--primary-color);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--surface-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: var(--on-surface-color);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.loading-progress {
+    width: 200px;
+    height: 4px;
+    background: var(--surface-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+    animation: progressFill 2s ease-out;
+}
+
+/* Keyframe Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes progressFill {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -8px, 0);
+    }
+    70% {
+        transform: translate3d(0, -4px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px var(--primary-color); }
+    50% { box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-up {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.animate-slide-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out;
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Hover Effects */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale {
+    transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Widget Animations */
+.widget {
+    animation: slideInUp 0.6s ease-out;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.action-card {
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.action-card:active {
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Button Animations */
+.btn, button {
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before, button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.btn:active::before, button:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Search Box Animations */
+.search-box {
+    transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Animations */
+.modal {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* Notification Animations */
+.notification {
+    animation: slideInRight 0.4s ease-out;
+}
+
+.notification.removing {
+    animation: slideInRight 0.4s ease-out reverse;
+}
+
+/* Progress Bar Animations */
+.progress-bar {
+    transition: width 0.5s ease;
+}
+
+/* Timer Animations */
+.timer-circle {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.timer-progress {
+    transition: stroke-dasharray 0.3s ease;
+}
+
+/* Calculator Animations */
+.calc-btn {
+    transition: all 0.1s ease;
+}
+
+.calc-btn:active {
+    transform: scale(0.95);
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Quote Animations */
+.quote-container {
+    transition: all 0.3s ease;
+}
+
+.quote-container:hover {
+    transform: scale(1.02);
+}
+
+/* Weather Animations */
+.weather-widget {
+    transition: all 0.3s ease;
+}
+
+.weather-widget:hover {
+    transform: scale(1.05);
+}
+
+/* Stats Animations */
+.stat-item {
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+}
+
+.stat-value {
+    transition: all 0.3s ease;
+}
+
+/* Calendar Animations */
+.calendar-day {
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+    transform: scale(1.1);
+    background: var(--primary-color);
+    color: white;
+}
+
+.calendar-day.today {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Converter Animations */
+.converter-input, .converter-output {
+    transition: all 0.3s ease;
+}
+
+.converter-input:focus-within, .converter-output:focus-within {
+    transform: scale(1.02);
+}
+
+/* Floating Action Button */
+.fab {
+    animation: scaleIn 0.4s ease-out;
+    transition: all 0.3s ease;
+}
+
+.fab:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Tab Animations */
+.tab-btn {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.tab-btn.active::after {
+    width: 100%;
+}
+
+/* Color Theme Animations */
+.color-btn {
+    transition: all 0.3s ease;
+}
+
+.color-btn:hover {
+    transform: scale(1.1);
+}
+
+.color-btn.active {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Responsive Animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode Specific Animations */
+[data-theme="dark"] .hover-glow:hover {
+    box-shadow: 0 0 15px var(--primary-color), 0 0 30px rgba(var(--primary-color-rgb), 0.3);
+}
+
+[data-theme="dark"] .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(var(--primary-color-rgb), 0.5);
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--surface-color);
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Success/Error Animations */
+.success {
+    animation: slideInUp 0.4s ease-out;
+    background: var(--success-color);
+}
+
+.error {
+    animation: shake 0.5s ease-in-out;
+    background: var(--error-color);
+}
+
+/* Tooltip Animations */
+.tooltip {
+    animation: fadeIn 0.3s ease-out;
+    transition: opacity 0.3s ease;
+}
+
+/* Chart Animations */
+.chart-bar {
+    animation: slideInUp 0.6s ease-out;
+    transition: all 0.3s ease;
+}
+
+.chart-bar:hover {
+    transform: scaleY(1.1);
+}
+
+/* Voice Recognition Animations */
+.voice-active {
+    animation: pulse 1s ease-in-out infinite;
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Search Suggestions Animations */
+.search-suggestion {
+    animation: slideInUp 0.3s ease-out;
+    transition: all 0.2s ease;
+}
+
+.search-suggestion:hover {
+    background: var(--surface-color);
+    transform: translateX(5px);
+}

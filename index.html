@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-animation">
+            <div class="loading-logo">
+                <span class="material-symbols-outlined">dashboard</span>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading your dashboard...</p>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="main-container" class="main-container hidden">
+        <!-- Floating Action Button -->
+        <button class="fab" id="fab-btn">
+            <span class="material-symbols-outlined">add</span>
+        </button>
+
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-left">
+                <div class="greeting">
+                    <h1 id="greeting-text">Good morning!</h1>
+                    <p id="user-name">Welcome back</p>
+                    <div class="greeting-emoji" id="greeting-emoji">🌅</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="weather-widget" id="weather-widget" data-widget="weather">
+                    <div class="weather-icon">
+                        <span class="material-symbols-outlined">wb_sunny</span>
+                    </div>
+                    <div class="weather-info">
+                        <div id="weather-temp">--°C</div>
+                        <div id="weather-location">Loading...</div>
+                    </div>
+                </div>
+                <div class="time-widget">
+                    <div id="current-time">--:--</div>
+                    <div id="current-date">--</div>
+                    <div id="current-day">--</div>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn" id="notifications-btn" title="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="notification-badge" id="notification-count">0</span>
+                    </button>
+                    <button class="settings-btn" id="settings-btn" title="Settings">
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input type="text" id="search-input" placeholder="Search the web, apps, or ask anything..." autocomplete="off">
+                    <div class="search-actions">
+                        <button class="voice-search-btn" id="voice-search-btn" title="Voice Search">
+                            <span class="material-symbols-outlined">mic</span>
+                        </button>
+                        <button class="camera-search-btn" id="camera-search-btn" title="Camera Search">
+                            <span class="material-symbols-outlined">camera_alt</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="search-suggestions" id="search-suggestions"></div>
+                <div class="search-engines">
+                    <button class="engine-btn active" data-engine="google">Google</button>
+                    <button class="engine-btn" data-engine="bing">Bing</button>
+                    <button class="engine-btn" data-engine="duckduckgo">DuckDuckGo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="action-grid">
+                <button class="action-card" data-action="bookmarks">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">bookmark</span>
+                    </div>
+                    <span>Bookmarks</span>
+                </button>
+                <button class="action-card" data-action="history">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">history</span>
+                    </div>
+                    <span>History</span>
+                </button>
+                <button class="action-card" data-action="downloads">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">download</span>
+                    </div>
+                    <span>Downloads</span>
+                </button>
+                <button class="action-card" data-action="extensions">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">extension</span>
+                    </div>
+                    <span>Extensions</span>
+                </button>
+                <button class="action-card" data-action="calculator">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">calculate</span>
+                    </div>
+                    <span>Calculator</span>
+                </button>
+                <button class="action-card" data-action="converter">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">currency_exchange</span>
+                    </div>
+                    <span>Converter</span>
+                </button>
+                <button class="action-card" data-action="calendar">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                    </div>
+                    <span>Calendar</span>
+                </button>
+                <button class="action-card" data-action="timer">
+                    <div class="action-icon">
+                        <span class="material-symbols-outlined">timer</span>
+                    </div>
+                    <span>Timer</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid -->
+        <section class="dashboard-grid">
+                    <!-- Todo List Widget -->
+        <div class="widget todo-widget" data-widget="todo">
+                <div class="widget-header">
+                    <h3>Today's Tasks</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="todo-filter-btn" title="Filter">
+                            <span class="material-symbols-outlined">filter_list</span>
+                        </button>
+                        <button class="widget-btn" id="todo-sort-btn" title="Sort">
+                            <span class="material-symbols-outlined">sort</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="todo-stats">
+                        <span class="todo-count" id="todo-count">0 tasks</span>
+                        <span class="todo-completed" id="todo-completed">0 completed</span>
+                    </div>
+                    <div class="todo-list" id="todo-list">
+                        <!-- Todo items will be added here -->
+                    </div>
+                    <div class="todo-input">
+                        <input type="text" id="new-todo-input" placeholder="Add a new task...">
+                        <button id="add-todo-btn">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="todo-filters">
+                        <button class="todo-filter-btn" data-filter="all">All</button>
+                        <button class="todo-filter-btn" data-filter="pending">Pending</button>
+                        <button class="todo-filter-btn" data-filter="completed">Completed</button>
+                        <button class="todo-filter-btn" data-filter="overdue">Overdue</button>
+                    </div>
+                    <div class="todo-sort">
+                        <select id="todo-sort">
+                            <option value="date-desc">Newest First</option>
+                            <option value="date-asc">Oldest First</option>
+                            <option value="priority-desc">High Priority</option>
+                            <option value="priority-asc">Low Priority</option>
+                        </select>
+                    </div>
+                    <div class="todo-actions">
+                        <button id="clear-completed-btn" class="btn btn-secondary">Clear Completed</button>
+                        <button id="export-todos-btn" class="btn btn-primary">Export</button>
+                        <button id="import-todos-btn" class="btn btn-primary">Import</button>
+                        <button id="todo-settings-btn" class="btn btn-secondary">Settings</button>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Enhanced Quick Notes Widget -->
+        <div class="widget notes-widget" data-widget="notes">
+                <div class="widget-header">
+                    <h3>Quick Notes</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="notes-new-btn" title="New Note">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                        <button class="widget-btn" id="notes-export-btn" title="Export Notes">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                        <button class="widget-btn" id="notes-import-btn" title="Import Notes">
+                            <span class="material-symbols-outlined">upload</span>
+                        </button>
+                        <button class="widget-btn" id="notes-settings-btn" title="Settings">
+                            <span class="material-symbols-outlined">settings</span>
+                        </button>
+                        <button class="widget-btn" id="notes-help-btn" title="Help">
+                            <span class="material-symbols-outlined">help</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="notes-container">
+                        <div class="notes-navigation">
+                            <div class="notes-search">
+                                <input type="text" id="notes-search-input" placeholder="Search notes..." class="notes-search-input">
+                                <span class="material-symbols-outlined">search</span>
+                            </div>
+                            <div class="notes-filters">
+                                <select id="notes-category-filter" class="notes-select">
+                                    <option value="">All Categories</option>
+                                    <option value="work">Work</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="ideas">Ideas</option>
+                                    <option value="todo">Todo</option>
+                                    <option value="important">Important</option>
+                                </select>
+                                <select id="notes-sort" class="notes-select">
+                                    <option value="date-desc">Newest First</option>
+                                    <option value="date-asc">Oldest First</option>
+                                    <option value="title-asc">Title A-Z</option>
+                                    <option value="title-desc">Title Z-A</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="notes-toolbar">
+                            <div class="toolbar-section">
+                                <button class="format-btn" data-format="bold" title="Bold (Ctrl+B)">
+                                    <span class="material-symbols-outlined">format_bold</span>
+                                </button>
+                                <button class="format-btn" data-format="italic" title="Italic (Ctrl+I)">
+                                    <span class="material-symbols-outlined">format_italic</span>
+                                </button>
+                                <button class="format-btn" data-format="underline" title="Underline (Ctrl+U)">
+                                    <span class="material-symbols-outlined">format_underline</span>
+                                </button>
+                                <button class="format-btn" data-format="strikethrough" title="Strikethrough (Ctrl+S)">
+                                    <span class="material-symbols-outlined">strikethrough_s</span>
+                                </button>
+                            </div>
+                            
+                            <div class="format-separator"></div>
+                            
+                            <div class="toolbar-section">
+                                <button class="format-btn" data-format="list" title="List (Ctrl+L)">
+                                    <span class="material-symbols-outlined">format_list_bulleted</span>
+                                </button>
+                                <button class="format-btn" data-format="numbered-list" title="Numbered List (Ctrl+Shift+L)">
+                                    <span class="material-symbols-outlined">format_list_numbered</span>
+                                </button>
+                                <button class="format-btn" data-format="link" title="Link (Ctrl+K)">
+                                    <span class="material-symbols-outlined">link</span>
+                                </button>
+                                <button class="format-btn" data-format="code" title="Code (Ctrl+Shift+C)">
+                                    <span class="material-symbols-outlined">code</span>
+                                </button>
+                                <button class="format-btn" data-format="quote" title="Quote (Ctrl+Q)">
+                                    <span class="material-symbols-outlined">format_quote</span>
+                                </button>
+                            </div>
+                            
+                            <div class="format-separator"></div>
+                            
+                            <div class="toolbar-section">
+                                <button class="format-btn" data-format="undo" title="Undo (Ctrl+Z)">
+                                    <span class="material-symbols-outlined">undo</span>
+                                </button>
+                                <button class="format-btn" data-format="redo" title="Redo (Ctrl+Y)">
+                                    <span class="material-symbols-outlined">redo</span>
+                                </button>
+                                <button class="format-btn" data-format="clear-formatting" title="Clear Formatting">
+                                    <span class="material-symbols-outlined">format_clear</span>
+                                </button>
+                            </div>
+                            
+                            <div class="format-separator"></div>
+                            
+                            <div class="toolbar-section">
+                                <button class="format-btn" data-format="insert-image" title="Insert Image">
+                                    <span class="material-symbols-outlined">image</span>
+                                </button>
+                                <button class="format-btn" data-format="insert-table" title="Insert Table">
+                                    <span class="material-symbols-outlined">table_chart</span>
+                                </button>
+                                <button class="format-btn" data-format="insert-emoji" title="Insert Emoji">
+                                    <span class="material-symbols-outlined">emoji_emotions</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="notes-main">
+                            <div class="notes-list" id="notes-list">
+                                <!-- Notes will be dynamically loaded here -->
+                            </div>
+                            
+                            <div class="notes-editor">
+                                <div class="notes-editor-header">
+                                    <input type="text" id="notes-title" placeholder="Note title..." class="notes-title-input">
+                                    <div class="notes-meta-info">
+                                        <span id="notes-word-count">0 words</span>
+                                        <span id="notes-char-count">0 chars</span>
+                                        <span id="notes-last-saved">Not saved</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="notes-categories-tags">
+                                    <select id="notes-category" class="notes-select">
+                                        <option value="">Select Category</option>
+                                        <option value="work">Work</option>
+                                        <option value="personal">Personal</option>
+                                        <option value="ideas">Ideas</option>
+                                        <option value="todo">Todo</option>
+                                        <option value="important">Important</option>
+                                    </select>
+                                    <input type="text" id="notes-tags-input" placeholder="Add tags (comma separated)" class="notes-tags-input">
+                                </div>
+                                
+                                <textarea id="notes-textarea" placeholder="Start writing your note..." class="notes-textarea"></textarea>
+                                
+                                <div class="notes-actions">
+                                    <div class="notes-actions-left">
+                                        <button id="notes-save-btn" class="notes-save-btn">
+                                            <span class="material-symbols-outlined">save</span>
+                                            Save Note
+                                        </button>
+                                        <button id="notes-auto-save-toggle" class="notes-toggle-btn" title="Toggle Auto-save">
+                                            <span class="material-symbols-outlined">auto_fix_high</span>
+                                        </button>
+                                    </div>
+                                    <div class="notes-actions-center">
+                                        <button id="notes-preview-btn" class="notes-preview-btn" title="Preview">
+                                            <span class="material-symbols-outlined">preview</span>
+                                        </button>
+                                        <button id="notes-fullscreen-btn" class="notes-fullscreen-btn" title="Fullscreen">
+                                            <span class="material-symbols-outlined">fullscreen</span>
+                                        </button>
+                                    </div>
+                                    <div class="notes-actions-right">
+                                        <button id="notes-clear-btn" class="notes-clear-btn">
+                                            <span class="material-symbols-outlined">clear</span>
+                                            Clear
+                                        </button>
+                                        <button id="notes-delete-btn" class="notes-delete-btn" style="display: none;">
+                                            <span class="material-symbols-outlined">delete</span>
+                                            Delete
+                                        </button>
+                                        <button id="notes-share-btn" class="notes-share-btn" title="Share Note">
+                                            <span class="material-symbols-outlined">share</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Quote Widget -->
+        <div class="widget quote-widget" data-widget="quotes">
+                <div class="widget-header">
+                    <h3>Daily Inspiration</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="prev-quote-btn" title="Previous Quote">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <button class="widget-btn" id="next-quote-btn" title="Next Quote">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                        <button class="widget-btn" id="quote-language-toggle" title="Toggle Language">
+                            বাং
+                        </button>
+                        <button class="widget-btn" id="favorite-quote-btn" title="Add to Favorites">
+                            <span class="material-symbols-outlined">favorite_border</span>
+                        </button>
+                        <button class="widget-btn" id="share-quote-btn" title="Share Quote">
+                            <span class="material-symbols-outlined">share</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="quote-content">
+                        <div class="quote-text-container">
+                            <blockquote id="quote-text">Loading quote...</blockquote>
+                        </div>
+                        <div class="quote-meta">
+                            <div class="quote-author">
+                                <cite id="quote-author">— Author</cite>
+                            </div>
+                            <div class="quote-category">
+                                <span id="quote-category">Category</span>
+                            </div>
+                        </div>
+                        <div class="quote-stats">
+                            <span class="quote-number" id="quote-number">1/50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Calendar Widget -->
+        <div class="widget calendar-widget" data-widget="calendar">
+                <div class="widget-header">
+                    <h3>Calendar</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="calendar-prev-btn" title="Previous">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <button class="widget-btn" id="calendar-next-btn" title="Next">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="calendar-header">
+                        <h4 id="calendar-month">January 2024</h4>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                    <div class="calendar-events" id="calendar-events">
+                        <h5>Today's Events</h5>
+                        <div class="event-list" id="event-list">
+                            <!-- Events will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Calculator Widget -->
+        <div class="widget calculator-widget" data-widget="calculator">
+                <div class="widget-header">
+                    <h3>Calculator</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="calc-history-btn" title="History">
+                            <span class="material-symbols-outlined">history</span>
+                        </button>
+                        <button class="widget-btn" id="calc-clear-btn" title="Clear">
+                            <span class="material-symbols-outlined">clear</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="calc-display">
+                        <div class="calc-expression" id="calc-expression"></div>
+                        <div class="calc-result" id="calc-result">0</div>
+                    </div>
+                    <div class="calc-keypad">
+                        <button class="calc-btn" data-action="clear">C</button>
+                        <button class="calc-btn" data-action="backspace">⌫</button>
+                        <button class="calc-btn" data-action="percent">%</button>
+                        <button class="calc-btn operator" data-action="divide">÷</button>
+                        
+                        <button class="calc-btn" data-action="7">7</button>
+                        <button class="calc-btn" data-action="8">8</button>
+                        <button class="calc-btn" data-action="9">9</button>
+                        <button class="calc-btn operator" data-action="multiply">×</button>
+                        
+                        <button class="calc-btn" data-action="4">4</button>
+                        <button class="calc-btn" data-action="5">5</button>
+                        <button class="calc-btn" data-action="6">6</button>
+                        <button class="calc-btn operator" data-action="subtract">−</button>
+                        
+                        <button class="calc-btn" data-action="1">1</button>
+                        <button class="calc-btn" data-action="2">2</button>
+                        <button class="calc-btn" data-action="3">3</button>
+                        <button class="calc-btn operator" data-action="add">+</button>
+                        
+                        <button class="calc-btn" data-action="0">0</button>
+                        <button class="calc-btn" data-action="decimal">.</button>
+                        <button class="calc-btn equals" data-action="equals">=</button>
+                    </div>
+                </div>
+            </div>
+
+          
+
+                    <!-- Currency Converter Widget -->
+        <div class="widget converter-widget" data-widget="converter">
+                <div class="widget-header">
+                    <h3>Currency Converter</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="converter-swap-btn" title="Swap">
+                            <span class="material-symbols-outlined">swap_horiz</span>
+                        </button>
+                        <button class="widget-btn" id="converter-refresh-btn" title="Refresh Rates">
+                            <span class="material-symbols-outlined">refresh</span>
+                        </button>
+                        <button class="widget-btn" id="converter-favorites-btn" title="Favorites">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="converter-input">
+                        <div class="currency-selector">
+                            <select id="from-currency">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="JPY">JPY</option>
+                                <option value="INR">INR</option>
+                            </select>
+                        </div>
+                        <input type="number" id="from-amount" placeholder="0.00" value="1">
+                    </div>
+                    <div class="converter-output">
+                        <div class="currency-selector">
+                            <select id="to-currency">
+                                <option value="EUR">EUR</option>
+                                <option value="USD">USD</option>
+                                <option value="GBP">GBP</option>
+                                <option value="JPY">JPY</option>
+                                <option value="INR">INR</option>
+                            </select>
+                        </div>
+                        <div class="converted-amount" id="converted-amount">0.00</div>
+                    </div>
+                    <div class="converter-rate" id="converter-rate">
+                        Rate: 1 USD = 0.85 EUR
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Timer Widget -->
+        <div class="widget timer-widget" data-widget="timer">
+                <div class="widget-header">
+                    <h3>Timer</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="timer-preset-btn" title="Presets">
+                            <span class="material-symbols-outlined">timer</span>
+                        </button>
+                        <button class="widget-btn" id="timer-sound-btn" title="Sound">
+                            <span class="material-symbols-outlined">volume_up</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="timer-display">
+                        <div class="timer-time" id="timer-display">25:00</div>
+                        <div class="timer-progress">
+                            <div class="timer-circle">
+                                <svg class="timer-svg" viewBox="0 0 100 100">
+                                    <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+                                    <circle class="timer-progress" cx="50" cy="50" r="45" id="timer-progress-circle"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" id="timer-start">Start</button>
+                        <button class="timer-btn" id="timer-pause">Pause</button>
+                        <button class="timer-btn" id="timer-reset">Reset</button>
+                    </div>
+                    <div class="timer-presets">
+                        <button class="preset-btn" data-time="300">5m</button>
+                        <button class="preset-btn" data-time="600">10m</button>
+                        <button class="preset-btn" data-time="900">15m</button>
+                        <button class="preset-btn" data-time="1500">25m</button>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- Clock Widget -->
+        <div class="widget clock-widget" data-widget="clock">
+                <div class="widget-header">
+                    <h3>Clock</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="clock-toggle-btn" title="Toggle Display">
+                            <span class="material-symbols-outlined">schedule</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <!-- Digital Clock Display -->
+                    <div class="clock-display digital-clock" id="digital-clock">
+                        <div class="digital-time" id="digital-time">00:00:00</div>
+                        <div class="digital-date" id="clock-date">Loading...</div>
+                        <div class="digital-day" id="clock-day">--</div>
+                    </div>
+                    
+                    <!-- Analog Clock Display -->
+                    <div class="clock-display analog-clock" id="analog-clock" style="display: none;">
+                        <div class="analog-clock-face">
+                            <div class="clock-center"></div>
+                            <div class="clock-hand hour-hand" id="hour-hand"></div>
+                            <div class="clock-hand minute-hand" id="minute-hand"></div>
+                            <div class="clock-hand second-hand" id="second-hand"></div>
+                            <!-- Clock numbers -->
+                            <div class="clock-number clock-12">12</div>
+                            <div class="clock-number clock-3">3</div>
+                            <div class="clock-number clock-6">6</div>
+                            <div class="clock-number clock-9">9</div>
+                            <!-- Clock ticks -->
+                            <div class="clock-tick tick-1"></div>
+                            <div class="clock-tick tick-2"></div>
+                            <div class="clock-tick tick-4"></div>
+                            <div class="clock-tick tick-5"></div>
+                            <div class="clock-tick tick-7"></div>
+                            <div class="clock-tick tick-8"></div>
+                            <div class="clock-tick tick-10"></div>
+                            <div class="clock-tick tick-11"></div>
+                        </div>
+                        <div class="analog-date" id="analog-date">Loading...</div>
+                    </div>
+                    
+                    <div class="clock-info">
+                        <div class="timezone-info">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span id="timezone-display">Local Time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <!-- AI Assistant Widget -->
+        <div class="widget ai-widget" data-widget="ai">
+                <div class="widget-header">
+                    <h3>AI Assistant</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="ai-suggestions-btn" title="Suggestions">
+                            <span class="material-symbols-outlined">lightbulb</span>
+                        </button>
+                        <button class="widget-btn" id="ai-insights-btn" title="Insights">
+                            <span class="material-symbols-outlined">analytics</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="ai-suggestions" id="ai-suggestions">
+                        <div class="suggestion-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span>Time to start your morning routine</span>
+                        </div>
+                    </div>
+                    <div class="ai-chat" id="ai-chat" style="display: none;">
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Chat messages will appear here -->
+                        </div>
+                    </div>
+                    <div class="ai-input">
+                        <input type="text" id="ai-query" placeholder="Ask me anything...">
+                        <button id="ai-send-btn">
+                            <span class="material-symbols-outlined">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Advanced Progress Tracker Widget -->
+            <div class="widget progress-widget" data-widget="progress">
+                <div class="widget-header">
+                    <h3>Advanced Progress Tracker</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="progress-add-btn" title="Add Goal">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                        <button class="widget-btn" id="progress-stats-btn" title="Analytics">
+                            <span class="material-symbols-outlined">analytics</span>
+                        </button>
+                        <button class="widget-btn" id="progress-calendar-btn" title="Calendar View">
+                            <span class="material-symbols-outlined">calendar_month</span>
+                        </button>
+                        <button class="widget-btn" id="progress-export-btn" title="Export Data">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                        <button class="widget-btn" id="close-tabs-btn" title="Close Unused Tabs">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <button class="widget-btn" id="tab-stats-btn" title="Tab Statistics">
+                            <span class="material-symbols-outlined">analytics</span>
+                        </button>
+                        <button class="widget-btn" id="focus-mode-btn" title="Focus Mode">
+                            <span class="material-symbols-outlined">visibility_off</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="progress-overview">
+                        <div class="progress-summary">
+                            <div class="summary-card">
+                                <div class="summary-icon">📊</div>
+                                <div class="summary-content">
+                                    <div class="summary-value" id="productivity-score">0%</div>
+                                    <div class="summary-label">Productivity</div>
+                                    <div class="summary-trend" id="productivity-trend">↗️ +5%</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">✅</div>
+                                <div class="summary-content">
+                                    <div class="summary-value" id="tasks-completed-progress">0/0</div>
+                                    <div class="summary-label">Tasks Done</div>
+                                    <div class="summary-trend" id="tasks-trend">↗️ +2</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">⏱️</div>
+                                <div class="summary-content">
+                                    <div class="summary-value" id="time-spent">0h</div>
+                                    <div class="summary-label">Time Spent</div>
+                                    <div class="summary-trend" id="time-trend">↗️ +30m</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">🔥</div>
+                                <div class="summary-content">
+                                    <div class="summary-value" id="streak-days-progress">0</div>
+                                    <div class="summary-label">Day Streak</div>
+                                    <div class="summary-trend" id="streak-trend">🔥 Best!</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">📑</div>
+                                <div class="summary-content">
+                                    <div class="summary-value" id="tab-counter">0</div>
+                                    <div class="summary-label">Open Tabs</div>
+                                    <div class="summary-trend" id="tab-trend">📊 Live</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">🎯</div>
+                                <div class="summary-content">
+                                    <div class="summary-value" id="focus-time">0h 0m</div>
+                                    <div class="summary-label">Focus Time</div>
+                                    <div class="summary-trend" id="focus-trend">🎯 Active</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-tabs">
+                        <button class="progress-tab active" data-tab="goals">Goals</button>
+                        <button class="progress-tab" data-tab="habits">Habits</button>
+                        <button class="progress-tab" data-tab="mood">Mood</button>
+                        <button class="progress-tab" data-tab="tabs">Tabs</button>
+                        <button class="progress-tab" data-tab="analytics">Analytics</button>
+                    </div>
+                    
+                    <div class="progress-tab-content">
+                        <div class="tab-panel active" id="goals-panel">
+                            <div class="goals-section">
+                                <div class="section-header">
+                                    <h4>Daily Goals</h4>
+                                    <button class="add-goal-btn" id="add-goal-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                        Add Goal
+                                    </button>
+                                </div>
+                                <div class="goals-grid" id="goals-grid"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="habits-panel">
+                            <div class="habits-section">
+                                <div class="section-header">
+                                    <h4>Daily Habits</h4>
+                                    <button class="add-habit-btn" id="add-habit-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                        Add Habit
+                                    </button>
+                                </div>
+                                <div class="habits-grid" id="habits-grid"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="mood-panel">
+                            <div class="mood-energy-section">
+                                <h4>How are you feeling today?</h4>
+                                <div class="mood-energy-grid">
+                                    <div class="mood-selector">
+                                        <label>Mood:</label>
+                                        <div class="mood-options">
+                                            <button class="mood-btn" data-mood="excellent" title="Excellent">😄</button>
+                                            <button class="mood-btn" data-mood="good" title="Good">🙂</button>
+                                            <button class="mood-btn" data-mood="okay" title="Okay">😐</button>
+                                            <button class="mood-btn" data-mood="bad" title="Bad">😔</button>
+                                            <button class="mood-btn" data-mood="terrible" title="Terrible">😢</button>
+                                        </div>
+                                    </div>
+                                    <div class="energy-selector">
+                                        <label>Energy Level:</label>
+                                        <div class="energy-options">
+                                            <button class="energy-btn" data-energy="high" title="High Energy">⚡⚡⚡</button>
+                                            <button class="energy-btn" data-energy="medium" title="Medium Energy">⚡⚡</button>
+                                            <button class="energy-btn" data-energy="low" title="Low Energy">⚡</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-notes">
+                                    <h4>Today's Reflection</h4>
+                                    <textarea id="progress-notes" placeholder="How was your day? What did you accomplish? Any challenges or wins?"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="tabs-panel">
+                            <div class="tabs-management-section">
+                                <h4>Tab Management & Focus</h4>
+                                <div class="tabs-overview">
+                                    <div class="tabs-stats">
+                                        <div class="tab-stat">
+                                            <div class="tab-stat-value" id="tab-counter">0</div>
+                                            <div class="tab-stat-label">Open Tabs</div>
+                                        </div>
+                                        <div class="tab-stat">
+                                            <div class="tab-stat-value" id="focus-time">0h 0m</div>
+                                            <div class="tab-stat-label">Focus Time</div>
+                                        </div>
+                                        <div class="tab-stat">
+                                            <div class="tab-stat-value" id="distractions">0</div>
+                                            <div class="tab-stat-label">Distractions</div>
+                                        </div>
+                                    </div>
+                                    <div class="tabs-actions">
+                                        <button class="tab-action-btn" id="close-tabs-btn">
+                                            <span class="material-symbols-outlined">close</span>
+                                            Close Unused
+                                        </button>
+                                        <button class="tab-action-btn" id="focus-mode-btn">
+                                            <span class="material-symbols-outlined">visibility_off</span>
+                                            Focus Mode
+                                        </button>
+                                        <button class="tab-action-btn" id="tab-stats-btn">
+                                            <span class="material-symbols-outlined">analytics</span>
+                                            Tab Stats
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="tabs-list" id="tabs-list">
+                                    <div class="tabs-loading">Loading tabs...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="analytics-panel">
+                            <div class="analytics-section">
+                                <h4>Progress Analytics</h4>
+                                <div class="analytics-grid">
+                                    <div class="analytics-card">
+                                        <h5>Weekly Progress</h5>
+                                        <div class="chart-container">
+                                            <canvas id="weekly-chart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h5>Habit Streaks</h5>
+                                        <div class="streak-list" id="streak-list"></div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h5>Mood Trends</h5>
+                                        <div class="mood-chart" id="mood-chart"></div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h5>Productivity Insights</h5>
+                                        <div class="insights-list" id="insights-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pomodoro Timer Widget -->
+            <div class="widget pomodoro-widget" data-widget="pomodoro">
+                <div class="widget-header">
+                    <h3>Pomodoro Timer</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="pomodoro-settings-btn" title="Settings">
+                            <span class="material-symbols-outlined">settings</span>
+                        </button>
+                        <button class="widget-btn" id="pomodoro-stats-btn" title="Statistics">
+                            <span class="material-symbols-outlined">analytics</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="pomodoro-display">
+                        <div class="timer-circle">
+                            <svg class="timer-svg" viewBox="0 0 120 120">
+                                <circle class="timer-bg" cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+                                <circle class="timer-progress" cx="60" cy="60" r="54" fill="none" stroke="var(--primary-color)" stroke-width="6" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+                            </svg>
+                            <div class="timer-content">
+                                <div class="timer-time" id="pomodoro-time">25:00</div>
+                                <div class="timer-label" id="pomodoro-label">Focus Time</div>
+                                <div class="timer-session" id="pomodoro-session">Session 1/4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pomodoro-controls">
+                        <button class="pomodoro-btn primary" id="pomodoro-start">Start</button>
+                        <button class="pomodoro-btn secondary" id="pomodoro-pause">Pause</button>
+                        <button class="pomodoro-btn secondary" id="pomodoro-reset">Reset</button>
+                        <button class="pomodoro-btn secondary" id="pomodoro-skip">Skip</button>
+                    </div>
+                    <div class="pomodoro-modes">
+                        <button class="mode-btn active" data-mode="focus" data-time="1500">
+                            <span class="mode-icon">🎯</span>
+                            <span class="mode-name">Focus</span>
+                            <span class="mode-time">25m</span>
+                        </button>
+                        <button class="mode-btn" data-mode="short-break" data-time="300">
+                            <span class="mode-icon">☕</span>
+                            <span class="mode-name">Short Break</span>
+                            <span class="mode-time">5m</span>
+                        </button>
+                        <button class="mode-btn" data-mode="long-break" data-time="900">
+                            <span class="mode-icon">🌙</span>
+                            <span class="mode-name">Long Break</span>
+                            <span class="mode-time">15m</span>
+                        </button>
+                    </div>
+                    <div class="pomodoro-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Today's Focus</span>
+                            <span class="stat-value" id="today-focus">0h 0m</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Sessions</span>
+                            <span class="stat-value" id="today-sessions">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Best Streak</span>
+                            <span class="stat-value" id="best-streak">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Habit Tracker Widget -->
+            <div class="widget habit-tracker-widget" data-widget="habit-tracker">
+                <div class="widget-header">
+                    <h3>Habit Tracker</h3>
+                    <div class="widget-actions">
+                        <button class="widget-btn" id="habit-add-btn" title="Add Habit">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                        <button class="widget-btn" id="habit-calendar-btn" title="Calendar View">
+                            <span class="material-symbols-outlined">calendar_month</span>
+                        </button>
+                        <button class="widget-btn" id="habit-stats-btn" title="Statistics">
+                            <span class="material-symbols-outlined">analytics</span>
+                        </button>
+                        <button class="widget-menu-btn">
+                            <span class="material-symbols-outlined">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="habit-overview">
+                        <div class="habit-summary">
+                            <div class="summary-stat">
+                                <div class="stat-number" id="total-habits">0</div>
+                                <div class="stat-label">Total Habits</div>
+                            </div>
+                            <div class="summary-stat">
+                                <div class="stat-number" id="completed-today">0</div>
+                                <div class="stat-label">Completed Today</div>
+                            </div>
+                            <div class="summary-stat">
+                                <div class="stat-number" id="completion-rate">0%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="habit-list" id="habit-list">
+                        <!-- Habits will be dynamically added here -->
+                    </div>
+                    <div class="habit-calendar">
+                        <div class="calendar-header">
+                            <button class="calendar-nav" id="prev-week">‹</button>
+                            <h4 id="week-label">This Week</h4>
+                            <button class="calendar-nav" id="next-week">›</button>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- Calendar will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Todo Settings Popup -->
+    <div id="todo-settings-popup" class="widget-settings-popup hidden">
+        <div class="popup-overlay"></div>
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-header-left">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <h3>Todo Settings</h3>
+                </div>
+                <button class="popup-close-btn" id="close-todo-settings">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="settings-group">
+                    <h4>General Settings</h4>
+                    <div class="setting-item">
+                        <label>Auto-save</label>
+                        <div class="toggle-group" data-setting="todo-auto-save">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        <div class="setting-description">Automatically save todo items as you type</div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Show Completed Tasks</label>
+                        <div class="toggle-group" data-setting="todo-show-completed">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Due Date Reminders</label>
+                        <div class="toggle-group" data-setting="todo-reminders">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Default Settings</h4>
+                    <div class="setting-item">
+                        <label>Default Priority</label>
+                        <select class="settings-select" id="todo-default-priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Default Due Date</label>
+                        <select class="settings-select" id="todo-default-due">
+                            <option value="none">No due date</option>
+                            <option value="today">Today</option>
+                            <option value="tomorrow" selected>Tomorrow</option>
+                            <option value="week">This week</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Categories</h4>
+                    <div class="setting-item">
+                        <label>Manage Categories</label>
+                        <div class="tags-input" id="todo-categories-popup">
+                            <span class="tag">Work</span>
+                            <span class="tag">Personal</span>
+                            <span class="tag">Shopping</span>
+                            <span class="tag">Health</span>
+                            <input type="text" placeholder="Add category..." class="tag-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Display Options</h4>
+                    <div class="setting-item">
+                        <label>Sort Order</label>
+                        <select class="settings-select" id="todo-sort-order">
+                            <option value="date-desc">Newest First</option>
+                            <option value="date-asc">Oldest First</option>
+                            <option value="priority-desc">High Priority</option>
+                            <option value="priority-asc">Low Priority</option>
+                            <option value="due-date">Due Date</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Items per Page</label>
+                        <select class="settings-select" id="todo-items-per-page">
+                            <option value="5">5 items</option>
+                            <option value="10" selected>10 items</option>
+                            <option value="15">15 items</option>
+                            <option value="20">20 items</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" id="reset-todo-settings">Reset to Default</button>
+                <button class="btn btn-primary" id="save-todo-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Notes Settings Popup -->
+    <div id="notes-settings-popup" class="widget-settings-popup hidden">
+        <div class="popup-overlay"></div>
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-header-left">
+                    <span class="material-symbols-outlined">edit_note</span>
+                    <h3>Quick Notes Settings</h3>
+                </div>
+                <button class="popup-close-btn" id="close-notes-settings">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="settings-group">
+                    <h4>Auto-save Settings</h4>
+                    <div class="setting-item">
+                        <label>Auto-save Interval</label>
+                        <select class="settings-select" id="notes-auto-save-interval">
+                            <option value="1000">1 second</option>
+                            <option value="3000" selected>3 seconds</option>
+                            <option value="5000">5 seconds</option>
+                            <option value="10000">10 seconds</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Enable Auto-save</label>
+                        <div class="toggle-group" data-setting="notes-auto-save">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Editor Settings</h4>
+                    <div class="setting-item">
+                        <label>Rich Text Editor</label>
+                        <div class="toggle-group" data-setting="notes-rich-editor">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Word Count</label>
+                        <div class="toggle-group" data-setting="notes-word-count">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Character Count</label>
+                        <div class="toggle-group" data-setting="notes-char-count">
+                            <div class="toggle-switch"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Spell Check</label>
+                        <div class="toggle-group" data-setting="notes-spell-check">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Categories & Tags</h4>
+                    <div class="setting-item">
+                        <label>Default Categories</label>
+                        <div class="tags-input" id="notes-categories-popup">
+                            <span class="tag">Work</span>
+                            <span class="tag">Personal</span>
+                            <span class="tag">Ideas</span>
+                            <span class="tag">Important</span>
+                            <span class="tag">Meeting</span>
+                            <input type="text" placeholder="Add category..." class="tag-input">
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Auto-tagging</label>
+                        <div class="toggle-group" data-setting="notes-auto-tagging">
+                            <div class="toggle-switch"></div>
+                        </div>
+                        <div class="setting-description">Automatically suggest tags based on content</div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Display Options</h4>
+                    <div class="setting-item">
+                        <label>Default Font Size</label>
+                        <select class="settings-select" id="notes-font-size">
+                            <option value="12">Small (12px)</option>
+                            <option value="14" selected>Medium (14px)</option>
+                            <option value="16">Large (16px)</option>
+                            <option value="18">Extra Large (18px)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Line Height</label>
+                        <select class="settings-select" id="notes-line-height">
+                            <option value="1.2">Compact</option>
+                            <option value="1.5" selected>Normal</option>
+                            <option value="1.8">Relaxed</option>
+                            <option value="2.0">Spacious</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Show Timestamps</label>
+                        <div class="toggle-group" data-setting="notes-timestamps">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" id="reset-notes-settings">Reset to Default</button>
+                <button class="btn btn-primary" id="save-notes-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Settings Modal -->
+    <div id="settings-modal" class="settings-modal hidden">
+        <div class="settings-overlay"></div>
+        <div class="settings-container">
+            <div class="settings-header">
+                <div class="settings-header-left">
+                    <span class="material-symbols-outlined">settings</span>
+                    <h2>Dashboard Settings</h2>
+                </div>
+                <button class="settings-close-btn" id="close-settings">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="settings-content">
+                <div class="settings-sidebar">
+                    <div class="settings-nav">
+                        <button class="nav-item active" data-tab="personalization">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Personalization</span>
+                        </button>
+                        <button class="nav-item" data-tab="widgets">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <span>Widgets</span>
+                        </button>
+                        <button class="nav-item" data-tab="appearance">
+                            <span class="material-symbols-outlined">palette</span>
+                            <span>Appearance</span>
+                        </button>
+                        <button class="nav-item" data-tab="productivity">
+                            <span class="material-symbols-outlined">trending_up</span>
+                            <span>Productivity</span>
+                        </button>
+                        <button class="nav-item" data-tab="integrations">
+                            <span class="material-symbols-outlined">integration_instructions</span>
+                            <span>Integrations</span>
+                        </button>
+                        <button class="nav-item" data-tab="advanced">
+                            <span class="material-symbols-outlined">tune</span>
+                            <span>Advanced</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-main">
+                    <!-- Personalization Tab -->
+                    <div class="settings-tab active" id="personalization-tab">
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Personal Information</h3>
+                                <p>Customize your dashboard experience</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label for="user-name-input">Your Name</label>
+                                    <input type="text" id="user-name-input" placeholder="Enter your name" class="settings-input">
+                                </div>
+                                <div class="setting-item">
+                                    <label for="user-location">Location</label>
+                                    <input type="text" id="user-location" placeholder="Enter your city" class="settings-input">
+                                </div>
+                                <div class="setting-item">
+                                    <label for="timezone-selector">Timezone</label>
+                                    <select id="timezone-selector" class="settings-select">
+                                        <option value="auto">Auto-detect</option>
+                                        <option value="UTC">UTC</option>
+                                        <option value="EST">Eastern Time</option>
+                                        <option value="PST">Pacific Time</option>
+                                        <option value="CST">Central Time</option>
+                                        <option value="MST">Mountain Time</option>
+                                        <option value="GMT">GMT</option>
+                                        <option value="CET">Central European Time</option>
+                                        <option value="JST">Japan Standard Time</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="language-selector">Language</label>
+                                    <select id="language-selector" class="settings-select">
+                                        <option value="en">English</option>
+                                        <option value="bn">বাংলা (Bengali)</option>
+                                        <option value="es">Español</option>
+                                        <option value="fr">Français</option>
+                                        <option value="de">Deutsch</option>
+                                        <option value="ja">日本語</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Greeting Preferences</h3>
+                                <p>Customize how the dashboard greets you</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label for="greeting-style">Greeting Style</label>
+                                    <select id="greeting-style" class="settings-select">
+                                        <option value="formal">Formal</option>
+                                        <option value="casual">Casual</option>
+                                        <option value="friendly">Friendly</option>
+                                        <option value="motivational">Motivational</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Show greeting emoji</span>
+                                        <div class="toggle-switch" id="show-emoji-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Show motivational quotes</span>
+                                        <div class="toggle-switch" id="show-quotes-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widgets Tab -->
+                    <div class="settings-tab" id="widgets-tab">
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Widget Management</h3>
+                                <p>Control which widgets are visible on your dashboard</p>
+                            </div>
+                            <div class="widget-grid">
+                                <div class="widget-card" data-widget="weather">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">wb_sunny</span>
+                                        <div>
+                                            <h4>Weather</h4>
+                                            <p>Real-time weather information</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="weather-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="quotes">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">format_quote</span>
+                                        <div>
+                                            <h4>Daily Quote</h4>
+                                            <p>Inspirational quotes and wisdom</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="quote-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="progress">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">analytics</span>
+                                        <div>
+                                            <h4>Progress Tracker</h4>
+                                            <p>Advanced goal and habit tracking</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="progress-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="pomodoro">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">timer</span>
+                                        <div>
+                                            <h4>Pomodoro Timer</h4>
+                                            <p>Focus sessions and productivity</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="pomodoro-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="calendar">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">calendar_month</span>
+                                        <div>
+                                            <h4>Calendar</h4>
+                                            <p>Event management and scheduling</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="calendar-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="calculator">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">calculate</span>
+                                        <div>
+                                            <h4>Calculator</h4>
+                                            <p>Advanced calculator with history</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="calculator-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="converter">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">currency_exchange</span>
+                                        <div>
+                                            <h4>Currency Converter</h4>
+                                            <p>Real-time exchange rates</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="converter-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="timer">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                        <div>
+                                            <h4>Timer</h4>
+                                            <p>Customizable countdown timer</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="timer-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget-card" data-widget="habit-tracker">
+                                    <div class="widget-info">
+                                        <span class="material-symbols-outlined">track_changes</span>
+                                        <div>
+                                            <h4>Habit Tracker</h4>
+                                            <p>Daily habit management</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch" id="habit-enabled-toggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Layout Options</h3>
+                                <p>Customize the dashboard layout and arrangement</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label for="layout-selector">Grid Layout</label>
+                                    <select id="layout-selector" class="settings-select">
+                                        <option value="auto">Auto (Responsive)</option>
+                                        <option value="2x2">2x2 Grid</option>
+                                        <option value="3x3">3x3 Grid</option>
+                                        <option value="4x4">4x4 Grid</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="widget-size">Widget Size</label>
+                                    <select id="widget-size" class="settings-select">
+                                        <option value="compact">Compact</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="large">Large</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Allow widget resizing</span>
+                                        <div class="toggle-switch" id="resize-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Tab -->
+                    <div class="settings-tab" id="appearance-tab">
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Theme & Colors</h3>
+                                <p>Personalize the visual appearance of your dashboard</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label for="theme-selector">Theme Mode</label>
+                                    <select id="theme-selector" class="settings-select">
+                                        <option value="auto">Auto (System)</option>
+                                        <option value="light">Light</option>
+                                        <option value="dark">Dark</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="accent-color">Accent Color</label>
+                                    <div class="color-picker">
+                                        <button class="color-option active" data-color="#4CAF50" style="background: #4CAF50;"></button>
+                                        <button class="color-option" data-color="#2196F3" style="background: #2196F3;"></button>
+                                        <button class="color-option" data-color="#9C27B0" style="background: #9C27B0;"></button>
+                                        <button class="color-option" data-color="#FF9800" style="background: #FF9800;"></button>
+                                        <button class="color-option" data-color="#E91E63" style="background: #E91E63;"></button>
+                                        <button class="color-option" data-color="#607D8B" style="background: #607D8B;"></button>
+                                        <button class="color-option" data-color="#795548" style="background: #795548;"></button>
+                                        <button class="color-option" data-color="#FF5722" style="background: #FF5722;"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Visual Effects</h3>
+                                <p>Customize animations and visual effects</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Enable animations</span>
+                                        <div class="toggle-switch" id="animations-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Show shadows and depth</span>
+                                        <div class="toggle-switch" id="shadows-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Glass morphism effects</span>
+                                        <div class="toggle-switch" id="glass-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="animation-speed">Animation Speed</label>
+                                    <select id="animation-speed" class="settings-select">
+                                        <option value="slow">Slow</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="fast">Fast</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Background</h3>
+                                <p>Choose your dashboard background</p>
+                            </div>
+                            <div class="background-options">
+                                <div class="bg-option active" data-bg="gradient">
+                                    <div class="bg-preview gradient-bg"></div>
+                                    <span>Gradient</span>
+                                </div>
+                                <div class="bg-option" data-bg="solid">
+                                    <div class="bg-preview solid-bg"></div>
+                                    <span>Solid</span>
+                                </div>
+                                <div class="bg-option" data-bg="image">
+                                    <div class="bg-preview image-bg"></div>
+                                    <span>Image</span>
+                                </div>
+                                <div class="bg-option" data-bg="animated">
+                                    <div class="bg-preview animated-bg"></div>
+                                    <span>Animated</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Productivity Tab -->
+                    <div class="settings-tab" id="productivity-tab">
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Focus & Productivity</h3>
+                                <p>Optimize your dashboard for maximum productivity</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label for="focus-mode">Focus Mode</label>
+                                    <select id="focus-mode" class="settings-select">
+                                        <option value="off">Off</option>
+                                        <option value="minimal">Minimal</option>
+                                        <option value="distraction-free">Distraction Free</option>
+                                        <option value="zen">Zen Mode</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Show productivity tips</span>
+                                        <div class="toggle-switch" id="tips-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Auto-start Pomodoro sessions</span>
+                                        <div class="toggle-switch" id="auto-pomodoro-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="work-hours">Work Hours</label>
+                                    <div class="time-range">
+                                        <input type="time" id="work-start" class="settings-input" value="09:00">
+                                        <span>to</span>
+                                        <input type="time" id="work-end" class="settings-input" value="17:00">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Notifications</h3>
+                                <p>Manage dashboard notifications and reminders</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Enable notifications</span>
+                                        <div class="toggle-switch" id="notifications-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Break reminders</span>
+                                        <div class="toggle-switch" id="break-reminders-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Goal completion alerts</span>
+                                        <div class="toggle-switch" id="goal-alerts-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="notification-sound">Notification Sound</label>
+                                    <select id="notification-sound" class="settings-select">
+                                        <option value="default">Default</option>
+                                        <option value="gentle">Gentle</option>
+                                        <option value="chime">Chime</option>
+                                        <option value="bell">Bell</option>
+                                        <option value="none">None</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrations Tab -->
+                    <div class="settings-tab" id="integrations-tab">
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>API Configuration</h3>
+                                <p>Connect external services for enhanced functionality</p>
+                            </div>
+                            <div class="api-config">
+                                <div class="api-item">
+                                    <div class="api-info">
+                                        <span class="material-symbols-outlined">wb_sunny</span>
+                                        <div>
+                                            <h4>Weather API</h4>
+                                            <p>OpenWeatherMap for weather data</p>
+                                        </div>
+                                    </div>
+                                    <input type="text" placeholder="Enter API key" class="api-input" id="weather-api-key">
+                                </div>
+                                
+                                <div class="api-item">
+                                    <div class="api-info">
+                                        <span class="material-symbols-outlined">currency_exchange</span>
+                                        <div>
+                                            <h4>Currency API</h4>
+                                            <p>Real-time exchange rates</p>
+                                        </div>
+                                    </div>
+                                    <input type="text" placeholder="Enter API key" class="api-input" id="currency-api-key">
+                                </div>
+                                
+                                <div class="api-item">
+                                    <div class="api-info">
+                                        <span class="material-symbols-outlined">smart_toy</span>
+                                        <div>
+                                            <h4>AI Assistant</h4>
+                                            <p>Google Gemini for intelligent features</p>
+                                        </div>
+                                    </div>
+                                    <input type="text" placeholder="Enter API key" class="api-input" id="gemini-api-key">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Third-party Integrations</h3>
+                                <p>Connect with your favorite productivity tools</p>
+                            </div>
+                            <div class="integration-grid">
+                                <div class="integration-card">
+                                    <div class="integration-info">
+                                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                                        <div>
+                                            <h4>GitHub</h4>
+                                            <p>Track repositories and contributions</p>
+                                        </div>
+                                    </div>
+                                    <button class="connect-btn" id="github-connect">Connect</button>
+                                </div>
+                                
+                                <div class="integration-card">
+                                    <div class="integration-info">
+                                        <img src="https://www.notion.so/images/logo-ios.png" alt="Notion">
+                                        <div>
+                                            <h4>Notion</h4>
+                                            <p>Sync notes and databases</p>
+                                        </div>
+                                    </div>
+                                    <button class="connect-btn" id="notion-connect">Connect</button>
+                                </div>
+                                
+                                <div class="integration-card">
+                                    <div class="integration-info">
+                                        <img src="https://a.slack-edge.com/bv1-10/slack_logo-ebd02d1.svg" alt="Slack">
+                                        <div>
+                                            <h4>Slack</h4>
+                                            <p>Team communication integration</p>
+                                        </div>
+                                    </div>
+                                    <button class="connect-btn" id="slack-connect">Connect</button>
+                                </div>
+                                
+                                <div class="integration-card">
+                                    <div class="integration-info">
+                                        <img src="https://calendar.google.com/googlecalendar/images/favicon_v2_0125200.png" alt="Google Calendar">
+                                        <div>
+                                            <h4>Google Calendar</h4>
+                                            <p>Event and schedule sync</p>
+                                        </div>
+                                    </div>
+                                    <button class="connect-btn" id="calendar-connect">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Tab -->
+                    <div class="settings-tab" id="advanced-tab">
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Data Management</h3>
+                                <p>Manage your dashboard data and privacy</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Enable analytics</span>
+                                        <div class="toggle-switch" id="analytics-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Auto-backup data</span>
+                                        <div class="toggle-switch" id="backup-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="backup-frequency">Backup Frequency</label>
+                                    <select id="backup-frequency" class="settings-select">
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="data-actions">
+                                <button class="action-btn secondary" id="export-data">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Export Data
+                                </button>
+                                <button class="action-btn secondary" id="import-data">
+                                    <span class="material-symbols-outlined">upload</span>
+                                    Import Data
+                                </button>
+                                <button class="action-btn secondary" id="backup-now">
+                                    <span class="material-symbols-outlined">backup</span>
+                                    Backup Now
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Performance</h3>
+                                <p>Optimize dashboard performance</p>
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Enable caching</span>
+                                        <div class="toggle-switch" id="caching-enabled-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <span>Lazy load widgets</span>
+                                        <div class="toggle-switch" id="lazy-load-toggle">
+                                            <div class="toggle-slider"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="cache-duration">Cache Duration</label>
+                                    <select id="cache-duration" class="settings-select">
+                                        <option value="1h">1 Hour</option>
+                                        <option value="6h">6 Hours</option>
+                                        <option value="24h">24 Hours</option>
+                                        <option value="7d">7 Days</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <div class="section-header">
+                                <h3>Reset & Maintenance</h3>
+                                <p>Reset settings or clear data</p>
+                            </div>
+                            <div class="reset-actions">
+                                <button class="action-btn warning" id="reset-settings">
+                                    <span class="material-symbols-outlined">restore</span>
+                                    Reset Settings
+                                </button>
+                                <button class="action-btn danger" id="clear-all-data">
+                                    <span class="material-symbols-outlined">delete_forever</span>
+                                    Clear All Data
+                                </button>
+                                <button class="action-btn danger" id="uninstall-extension">
+                                    <span class="material-symbols-outlined">uninstall</span>
+                                    Uninstall Extension
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-footer">
+                <div class="settings-actions">
+                    <button class="btn-secondary" id="reset-settings-btn">Reset to Default</button>
+                    <button class="btn-primary" id="save-settings-btn">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div id="notifications-panel" class="notifications-panel hidden">
+        <div class="notifications-header">
+            <h3>Notifications</h3>
+            <button class="close-btn" id="close-notifications">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="notifications-list" id="notifications-list">
+            <!-- Notifications will be added here -->
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <div class="settings-header-left">
+                <h3 data-en="Settings" data-bn="সেটিংস">Settings</h3>
+                <div class="settings-subtitle" data-en="Customize your dashboard experience" data-bn="আপনার ড্যাশবোর্ড অভিজ্ঞতা কাস্টমাইজ করুন">Customize your dashboard experience</div>
+            </div>
+            <div class="settings-header-right">
+                <button class="settings-quick-menu" id="settings-quick-menu" title="Quick Settings">
+                    <span class="material-symbols-outlined">more_vert</span>
+                </button>
+                <button class="settings-close" id="settings-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+        </div>
+        <div class="settings-content">
+            <!-- Settings Search -->
+            <div class="settings-search">
+                <input type="text" id="settings-search" placeholder="Search settings..." data-en="Search settings..." data-bn="সেটিংস অনুসন্ধান করুন...">
+                <div class="search-suggestions" id="search-suggestions">
+                    <div class="suggestion-item" data-search="theme">
+                        <span class="suggestion-icon">🎨</span>
+                        <span class="suggestion-text">Theme Settings</span>
+                    </div>
+                    <div class="suggestion-item" data-search="language">
+                        <span class="suggestion-icon">🌐</span>
+                        <span class="suggestion-text">Language</span>
+                    </div>
+                    <div class="suggestion-item" data-search="widgets">
+                        <span class="suggestion-icon">📱</span>
+                        <span class="suggestion-text">Widget Visibility</span>
+                    </div>
+                    <div class="suggestion-item" data-search="animations">
+                        <span class="suggestion-icon">✨</span>
+                        <span class="suggestion-text">Animations</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Categories -->
+            <div class="settings-categories-container">
+                <div class="settings-categories">
+                    <button class="category-tab active" data-category="general" data-en="General" data-bn="সাধারণ">
+                        <span class="category-icon">⚙️</span>
+                        <span class="category-text">General</span>
+                        <span class="category-badge">3</span>
+                    </button>
+                    <button class="category-tab" data-category="appearance" data-en="Appearance" data-bn="চেহারা">
+                        <span class="category-icon">🎨</span>
+                        <span class="category-text">Appearance</span>
+                        <span class="category-badge">2</span>
+                    </button>
+                    <button class="category-tab" data-category="widgets" data-en="Widgets" data-bn="উইজেট">
+                        <span class="category-icon">📱</span>
+                        <span class="category-text">Widgets</span>
+                        <span class="category-badge">8</span>
+                    </button>
+                    <button class="category-tab" data-category="advanced" data-en="Advanced" data-bn="উন্নত">
+                        <span class="category-icon">🚀</span>
+                        <span class="category-text">Advanced</span>
+                        <span class="category-badge">4</span>
+                    </button>
+                    <button class="category-tab" data-category="integrations" data-en="Integrations" data-bn="একীভূতকরণ">
+                        <span class="category-icon">🔗</span>
+                        <span class="category-text">Integrations</span>
+                        <span class="category-badge">4</span>
+                    </button>
+                </div>
+                <div class="scroll-indicator left" id="scroll-left">‹</div>
+                <div class="scroll-indicator right" id="scroll-right">›</div>
+            </div>
+
+            <!-- General Settings -->
+            <div class="settings-category active" data-category="general">
+                <!-- Language Settings -->
+                <div class="settings-section">
+                    <h4 data-en="Language" data-bn="ভাষা">Language</h4>
+                    <div class="language-selector">
+                        <button class="lang-btn active" data-lang="en">English</button>
+                        <button class="lang-btn" data-lang="bn">বাংলা</button>
+                    </div>
+                </div>
+
+                <!-- Personalization -->
+                <div class="settings-section">
+                    <h4 data-en="Personalization" data-bn="ব্যক্তিগতকরণ">Personalization</h4>
+                    <div class="setting-item">
+                        <label for="user-name-input" data-en="Your Name" data-bn="আপনার নাম">Your Name</label>
+                        <input type="text" id="user-name-input" placeholder="Enter your name">
+                        <div class="setting-description" data-en="This name will be used in greetings and personalization" data-bn="এই নামটি অভিবাদন এবং ব্যক্তিগতকরণে ব্যবহৃত হবে">This name will be used in greetings and personalization</div>
+                    </div>
+                    <div class="setting-item">
+                        <label for="location-input" data-en="Location" data-bn="অবস্থান">Location</label>
+                        <input type="text" id="location-input" placeholder="Enter your city">
+                        <div class="setting-description" data-en="Your location for weather and timezone features" data-bn="আবহাওয়া এবং সময় অঞ্চল বৈশিষ্ট্যের জন্য আপনার অবস্থান">Your location for weather and timezone features</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance Settings -->
+            <div class="settings-category" data-category="appearance">
+                <div class="settings-section">
+                    <h4 data-en="Theme & Colors" data-bn="থিম এবং রং">Theme & Colors</h4>
+                    <div class="setting-item">
+                        <label for="theme-selector" data-en="Theme" data-bn="থিম">Theme</label>
+                        <select id="theme-selector">
+                            <option value="auto" data-en="Auto (System)" data-bn="স্বয়ংক্রিয় (সিস্টেম)">Auto (System)</option>
+                            <option value="light" data-en="Light" data-bn="হালকা">Light</option>
+                            <option value="dark" data-en="Dark" data-bn="অন্ধকার">Dark</option>
+                        </select>
+                        <div class="setting-description" data-en="Choose your preferred theme mode" data-bn="আপনার পছন্দের থিম মোড নির্বাচন করুন">Choose your preferred theme mode</div>
+                    </div>
+                    <div class="toggle-group" data-setting="animations">
+                        <span class="toggle-label" data-en="Enable Animations" data-bn="অ্যানিমেশন সক্রিয় করুন">Enable Animations</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget Settings -->
+            <div class="settings-category" data-category="widgets">
+                <div class="settings-section">
+                    <h4 data-en="Widget Visibility" data-bn="উইজেট দৃশ্যমানতা">Widget Visibility</h4>
+                    <div class="toggle-group" data-widget="weather">
+                        <span class="toggle-label" data-en="Weather Widget" data-bn="আবহাওয়া উইজেট">Weather Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="quotes">
+                        <span class="toggle-label" data-en="Quotes Widget" data-bn="উক্তি উইজেট">Quotes Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="stats">
+                        <span class="toggle-label" data-en="Stats Widget" data-bn="পরিসংখ্যান উইজেট">Stats Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="calendar">
+                        <span class="toggle-label" data-en="Calendar Widget" data-bn="ক্যালেন্ডার উইজেট">Calendar Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="calculator">
+                        <span class="toggle-label" data-en="Calculator Widget" data-bn="ক্যালকুলেটর উইজেট">Calculator Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="converter">
+                        <span class="toggle-label" data-en="Converter Widget" data-bn="রূপান্তরকারী উইজেট">Converter Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="timer">
+                        <span class="toggle-label" data-en="Timer Widget" data-bn="টাইমার উইজেট">Timer Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="toggle-group" data-widget="clock">
+                        <span class="toggle-label" data-en="Clock Widget" data-bn="ঘড়ি উইজেট">Clock Widget</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+
+                <!-- Todo Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        <h4 data-en="Todo Widget Settings" data-bn="টুডু উইজেট সেটিংস">Todo Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Auto-save" data-bn="স্বয়ংক্রিয় সংরক্ষণ">Auto-save</label>
+                        <div class="toggle-group" data-setting="todo-auto-save">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        <div class="setting-description" data-en="Automatically save todo items as you type" data-bn="আপনি টাইপ করার সময় স্বয়ংক্রিয়ভাবে টুডু আইটেমগুলি সংরক্ষণ করুন">Automatically save todo items as you type</div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Show Completed Tasks" data-bn="সম্পূর্ণ কাজগুলি দেখান">Show Completed Tasks</label>
+                        <div class="toggle-group" data-setting="todo-show-completed">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Default Priority" data-bn="ডিফল্ট অগ্রাধিকার">Default Priority</label>
+                        <select class="settings-select" id="todo-default-priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Due Date Reminders" data-bn="শেষ তারিখের রিমাইন্ডার">Due Date Reminders</label>
+                        <div class="toggle-group" data-setting="todo-reminders">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Categories" data-bn="বিভাগগুলি">Categories</label>
+                        <div class="tags-input" id="todo-categories">
+                            <span class="tag">Work</span>
+                            <span class="tag">Personal</span>
+                            <span class="tag">Shopping</span>
+                            <input type="text" placeholder="Add category..." class="tag-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">edit_note</span>
+                        <h4 data-en="Notes Widget Settings" data-bn="নোট উইজেট সেটিংস">Notes Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Auto-save Interval" data-bn="স্বয়ংক্রিয় সংরক্ষণ ব্যবধান">Auto-save Interval</label>
+                        <select class="settings-select" id="notes-auto-save-interval">
+                            <option value="1000">1 second</option>
+                            <option value="3000" selected>3 seconds</option>
+                            <option value="5000">5 seconds</option>
+                            <option value="10000">10 seconds</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Rich Text Editor" data-bn="সমৃদ্ধ টেক্সট সম্পাদক">Rich Text Editor</label>
+                        <div class="toggle-group" data-setting="notes-rich-editor">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Word Count" data-bn="শব্দ গণনা">Word Count</label>
+                        <div class="toggle-group" data-setting="notes-word-count">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Default Categories" data-bn="ডিফল্ট বিভাগগুলি">Default Categories</label>
+                        <div class="tags-input" id="notes-categories">
+                            <span class="tag">Work</span>
+                            <span class="tag">Personal</span>
+                            <span class="tag">Ideas</span>
+                            <span class="tag">Important</span>
+                            <input type="text" placeholder="Add category..." class="tag-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">calculate</span>
+                        <h4 data-en="Calculator Widget Settings" data-bn="ক্যালকুলেটর উইজেট সেটিংস">Calculator Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="History Size" data-bn="ইতিহাসের আকার">History Size</label>
+                        <select class="settings-select" id="calc-history-size">
+                            <option value="5">5 entries</option>
+                            <option value="10" selected>10 entries</option>
+                            <option value="20">20 entries</option>
+                            <option value="50">50 entries</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Scientific Mode" data-bn="বৈজ্ঞানিক মোড">Scientific Mode</label>
+                        <div class="toggle-group" data-setting="calc-scientific">
+                            <div class="toggle-switch"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Decimal Places" data-bn="দশমিক স্থান">Decimal Places</label>
+                        <select class="settings-select" id="calc-decimal-places">
+                            <option value="0">0</option>
+                            <option value="2" selected>2</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Timer Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">timer</span>
+                        <h4 data-en="Timer Widget Settings" data-bn="টাইমার উইজেট সেটিংস">Timer Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Default Timer" data-bn="ডিফল্ট টাইমার">Default Timer</label>
+                        <select class="settings-select" id="timer-default">
+                            <option value="300">5 minutes</option>
+                            <option value="600">10 minutes</option>
+                            <option value="900">15 minutes</option>
+                            <option value="1500" selected>25 minutes (Pomodoro)</option>
+                            <option value="1800">30 minutes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Sound Notifications" data-bn="শব্দ বিজ্ঞপ্তি">Sound Notifications</label>
+                        <div class="toggle-group" data-setting="timer-sound">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Browser Notifications" data-bn="ব্রাউজার বিজ্ঞপ্তি">Browser Notifications</label>
+                        <div class="toggle-group" data-setting="timer-notifications">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Auto-start Breaks" data-bn="স্বয়ংক্রিয় বিরতি শুরু">Auto-start Breaks</label>
+                        <div class="toggle-group" data-setting="timer-auto-break">
+                            <div class="toggle-switch"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clock Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <h4 data-en="Clock Widget Settings" data-bn="ঘড়ি উইজেট সেটিংস">Clock Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Display Type" data-bn="প্রদর্শনের ধরন">Display Type</label>
+                        <div class="radio-group" id="clock-display-type">
+                            <label class="radio-option">
+                                <input type="radio" name="clock-display" value="digital" checked>
+                                <span class="radio-custom"></span>
+                                <span class="radio-label" data-en="Digital" data-bn="ডিজিটাল">Digital</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="clock-display" value="analog">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label" data-en="Analog" data-bn="অ্যানালগ">Analog</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Time Format" data-bn="সময়ের ফরম্যাট">Time Format</label>
+                        <div class="radio-group" id="clock-time-format">
+                            <label class="radio-option">
+                                <input type="radio" name="clock-time-format" value="12" checked>
+                                <span class="radio-custom"></span>
+                                <span class="radio-label" data-en="12-hour" data-bn="১২-ঘন্টা">12-hour</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="clock-time-format" value="24">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label" data-en="24-hour" data-bn="২৪-ঘন্টা">24-hour</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Show Seconds" data-bn="সেকেন্ড দেখান">Show Seconds</label>
+                        <div class="toggle-group" data-setting="clock-seconds">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Show Date" data-bn="তারিখ দেখান">Show Date</label>
+                        <div class="toggle-group" data-setting="clock-show-date">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Timezone" data-bn="সময় অঞ্চল">Timezone</label>
+                        <select class="settings-select" id="clock-timezone">
+                            <option value="local" selected>Local Time</option>
+                            <option value="UTC">UTC</option>
+                            <option value="EST">Eastern Time</option>
+                            <option value="PST">Pacific Time</option>
+                            <option value="GMT">GMT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Weather Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">wb_sunny</span>
+                        <h4 data-en="Weather Widget Settings" data-bn="আবহাওয়া উইজেট সেটিংস">Weather Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Temperature Unit" data-bn="তাপমাত্রার একক">Temperature Unit</label>
+                        <div class="radio-group" id="weather-unit">
+                            <label class="radio-option">
+                                <input type="radio" name="weather-unit" value="celsius" checked>
+                                <span class="radio-custom"></span>
+                                <span class="radio-label" data-en="Celsius (°C)" data-bn="সেলসিয়াস (°C)">Celsius (°C)</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="weather-unit" value="fahrenheit">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label" data-en="Fahrenheit (°F)" data-bn="ফারেনহাইট (°F)">Fahrenheit (°F)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Auto-refresh" data-bn="স্বয়ংক্রিয় রিফ্রেশ">Auto-refresh</label>
+                        <select class="settings-select" id="weather-refresh">
+                            <option value="300000">5 minutes</option>
+                            <option value="600000" selected>10 minutes</option>
+                            <option value="1800000">30 minutes</option>
+                            <option value="3600000">1 hour</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Show Forecast" data-bn="পূর্বাভাস দেখান">Show Forecast</label>
+                        <div class="toggle-group" data-setting="weather-forecast">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Location" data-bn="অবস্থান">Location</label>
+                        <div class="location-input">
+                            <input type="text" id="weather-location" placeholder="Enter city name..." class="settings-input">
+                            <button class="location-btn" id="detect-location">
+                                <span class="material-symbols-outlined">my_location</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Widget Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">format_quote</span>
+                        <h4 data-en="Quote Widget Settings" data-bn="উক্তি উইজেট সেটিংস">Quote Widget Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Quote Categories" data-bn="উক্তির বিভাগগুলি">Quote Categories</label>
+                        <div class="tags-input" id="quote-categories">
+                            <span class="tag">Motivation</span>
+                            <span class="tag">Wisdom</span>
+                            <span class="tag">Success</span>
+                            <span class="tag">Life</span>
+                            <input type="text" placeholder="Add category..." class="tag-input">
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Auto-refresh" data-bn="স্বয়ংক্রিয় রিফ্রেশ">Auto-refresh</label>
+                        <select class="settings-select" id="quote-refresh">
+                            <option value="0">Manual only</option>
+                            <option value="3600000" selected>1 hour</option>
+                            <option value="7200000">2 hours</option>
+                            <option value="86400000">Daily</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Show Author" data-bn="লেখক দেখান">Show Author</label>
+                        <div class="toggle-group" data-setting="quote-show-author">
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currency Converter Settings -->
+                <div class="settings-section widget-settings-section">
+                    <div class="settings-section-header">
+                        <span class="material-symbols-outlined">currency_exchange</span>
+                        <h4 data-en="Currency Converter Settings" data-bn="মুদ্রা রূপান্তরকারী সেটিংস">Currency Converter Settings</h4>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Default Currencies" data-bn="ডিফল্ট মুদ্রা">Default Currencies</label>
+                        <div class="currency-pair">
+                            <select class="settings-select" id="converter-from">
+                                <option value="USD" selected>USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="JPY">JPY</option>
+                                <option value="INR">INR</option>
+                            </select>
+                            <span class="currency-arrow">→</span>
+                            <select class="settings-select" id="converter-to">
+                                <option value="EUR" selected>EUR</option>
+                                <option value="USD">USD</option>
+                                <option value="GBP">GBP</option>
+                                <option value="JPY">JPY</option>
+                                <option value="INR">INR</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Auto-refresh Rates" data-bn="স্বয়ংক্রিয় রেট রিফ্রেশ">Auto-refresh Rates</label>
+                        <select class="settings-select" id="converter-refresh">
+                            <option value="0">Manual only</option>
+                            <option value="300000">5 minutes</option>
+                            <option value="900000" selected>15 minutes</option>
+                            <option value="3600000">1 hour</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label data-en="Decimal Places" data-bn="দশমিক স্থান">Decimal Places</label>
+                        <select class="settings-select" id="converter-decimals">
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Features -->
+            <div class="settings-category" data-category="advanced">
+                <div class="settings-section">
+                    <h4 data-en="AI & Productivity" data-bn="এআই এবং উৎপাদনশীলতা">AI & Productivity</h4>
+                    <div class="toggle-group" data-setting="ai-assistant">
+                        <span class="toggle-label" data-en="AI Assistant" data-bn="এআই সহকারী">AI Assistant</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="setting-description" data-en="Enable AI-powered suggestions and chat assistance" data-bn="এআই-চালিত পরামর্শ এবং চ্যাট সহায়তা সক্রিয় করুন">Enable AI-powered suggestions and chat assistance</div>
+                    
+                    <div class="toggle-group" data-setting="analytics">
+                        <span class="toggle-label" data-en="Analytics & Insights" data-bn="বিশ্লেষণ এবং অন্তর্দৃষ্টি">Analytics & Insights</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="setting-description" data-en="Track your productivity patterns and get insights" data-bn="আপনার উৎপাদনশীলতার ধরণগুলি ট্র্যাক করুন এবং অন্তর্দৃষ্টি পান">Track your productivity patterns and get insights</div>
+                    
+                    <div class="toggle-group" data-setting="focus-mode">
+                        <span class="toggle-label" data-en="Focus Mode" data-bn="ফোকাস মোড">Focus Mode</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="setting-description" data-en="Block distractions and stay focused on tasks" data-bn="বিভ্রান্তি ব্লক করুন এবং কাজে মনোনিবেশ করুন">Block distractions and stay focused on tasks</div>
+                    
+                    <div class="toggle-group" data-setting="habit-tracker">
+                        <span class="toggle-label" data-en="Habit Tracker" data-bn="অভ্যাস ট্র্যাকার">Habit Tracker</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="setting-description" data-en="Build and track daily habits for better productivity" data-bn="ভাল উৎপাদনশীলতার জন্য দৈনন্দিন অভ্যাস তৈরি এবং ট্র্যাক করুন">Build and track daily habits for better productivity</div>
+                </div>
+
+                <div class="settings-section">
+                    <h4 data-en="Data & Privacy" data-bn="ডেটা এবং গোপনীয়তা">Data & Privacy</h4>
+                    <div class="setting-item">
+                        <button class="connect-btn" id="export-data" data-en="Export Data" data-bn="ডেটা রপ্তানি করুন">Export Data</button>
+                        <div class="setting-description" data-en="Download your settings and data as a backup" data-bn="আপনার সেটিংস এবং ডেটা ব্যাকআপ হিসাবে ডাউনলোড করুন">Download your settings and data as a backup</div>
+                    </div>
+                    <div class="setting-item">
+                        <button class="connect-btn" id="import-data" data-en="Import Data" data-bn="ডেটা আমদানি করুন">Import Data</button>
+                        <div class="setting-description" data-en="Restore your settings from a backup file" data-bn="ব্যাকআপ ফাইল থেকে আপনার সেটিংস পুনরুদ্ধার করুন">Restore your settings from a backup file</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrations -->
+            <div class="settings-category" data-category="integrations">
+                <div class="settings-section">
+                    <h4 data-en="External Services" data-bn="বাহ্যিক পরিষেবা">External Services</h4>
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <span class="integration-name" data-en="Google Calendar" data-bn="গুগল ক্যালেন্ডার">Google Calendar</span>
+                            <span class="integration-status disconnected" data-en="Disconnected" data-bn="সংযোগ বিচ্ছিন্ন">Disconnected</span>
+                        </div>
+                        <button class="connect-btn" data-provider="google" data-en="Connect" data-bn="সংযোগ করুন">Connect</button>
+                    </div>
+                    <div class="setting-description" data-en="Sync your calendar events and schedule" data-bn="আপনার ক্যালেন্ডার ইভেন্ট এবং সময়সূচী সিঙ্ক করুন">Sync your calendar events and schedule</div>
+                    
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <span class="integration-name" data-en="GitHub" data-bn="গিটহাব">GitHub</span>
+                            <span class="integration-status disconnected" data-en="Disconnected" data-bn="সংযোগ বিচ্ছিন্ন">Disconnected</span>
+                        </div>
+                        <button class="connect-btn" data-provider="github" data-en="Connect" data-bn="সংযোগ করুন">Connect</button>
+                    </div>
+                    <div class="setting-description" data-en="Track your repositories and coding activity" data-bn="আপনার রিপোজিটরি এবং কোডিং কার্যকলাপ ট্র্যাক করুন">Track your repositories and coding activity</div>
+                    
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <span class="integration-name" data-en="Notion" data-bn="নোশন">Notion</span>
+                            <span class="integration-status disconnected" data-en="Disconnected" data-bn="সংযোগ বিচ্ছিন্ন">Disconnected</span>
+                        </div>
+                        <button class="connect-btn" data-provider="notion" data-en="Connect" data-bn="সংযোগ করুন">Connect</button>
+                    </div>
+                    <div class="setting-description" data-en="Access your Notion pages and databases" data-bn="আপনার নোশন পৃষ্ঠা এবং ডেটাবেস অ্যাক্সেস করুন">Access your Notion pages and databases</div>
+                    
+                    <div class="integration-item">
+                        <div class="integration-info">
+                            <span class="integration-name" data-en="Slack" data-bn="স্ল্যাক">Slack</span>
+                            <span class="integration-status disconnected" data-en="Disconnected" data-bn="সংযোগ বিচ্ছিন্ন">Disconnected</span>
+                        </div>
+                        <button class="connect-btn" data-provider="slack" data-en="Connect" data-bn="সংযোগ করুন">Connect</button>
+                    </div>
+                    <div class="setting-description" data-en="Send messages and manage your workspace" data-bn="বার্তা পাঠান এবং আপনার কর্মক্ষেত্র পরিচালনা করুন">Send messages and manage your workspace</div>
+                </div>
+            </div>
+
+            <!-- Settings Footer -->
+            <div class="settings-footer">
+                <p data-en="Smart Dashboard NewTab - AI Powered" data-bn="স্মার্ট ড্যাশবোর্ড নিউট্যাব - এআই চালিত">Smart Dashboard NewTab - AI Powered</p>
+                <p class="version" data-en="Version 1.0.0" data-bn="সংস্করণ ১.০.০">Version 1.0.0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config/api-keys.js"></script>
+    <script src="scripts/settings-manager.js"></script>
+    <script src="scripts/widget-settings.js"></script>
+    <script src="scripts/quotes.js"></script>
+                <script src="scripts/pomodoro.js"></script>
+            <script src="scripts/habit-tracker.js"></script>
+            <script src="scripts/settings.js"></script>
+            <script src="scripts/app.js"></script>
+    <script src="validate-extension.js"></script>
+    <script src="scripts/weather.js"></script>
+    <script src="scripts/todo.js"></script>
+    <script src="scripts/notes.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/stats.js"></script>
+    <script src="scripts/voice.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/calculator.js"></script>
+    <script src="scripts/converter.js"></script>
+    <script src="scripts/timer.js"></script>
+    <script src="scripts/clock.js"></script>
+    <script src="scripts/notifications.js"></script>
+    <script src="scripts/animations.js"></script>
+    
+    <!-- Advanced Features -->
+    <script src="scripts/ai-assistant.js"></script>
+    <script src="scripts/analytics.js"></script>
+    <script src="scripts/productivity-tools.js"></script>
+    <script src="scripts/integrations.js"></script>
+    <script src="scripts/progress.js"></script>
+</body>
+</html>
